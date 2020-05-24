@@ -4,19 +4,40 @@
 #include <iostream>
 #include "my_vector.h"
 
+class MyClass {
+private:
+    const char* m_text = "";
+public:
+    void SetText(const char* text) {
+        m_text = text;
+    }
+    void Print() {
+        printf("%s\n",m_text);
+    }
+};
 
 int main()
 {
-    MyVector<int> a(10);
-    for (int i = 0; i < a.Size(); i++) {
-        a[i] = i;
+    MyVector<MyClass> temp(10);
+    for (int i = 0; i < temp.Size(); i++) {
+        temp[i].SetText("a");
+    }
+    temp[3].SetText("adfsg");
+
+    for (int i = 0; i < temp.Size(); i++) {
+        temp[i].Print();
     }
 
-    
-    for (MyVector<int>::MyIterator it = a.begin(); it != a.end(); it++) {
-        std::cout << *it <<std::endl;
-    }
-    std::cout << "Hello World!\n";
+        //MyVector<int> a(10);
+    //for (int i = 0; i < a.Size(); i++) {
+    //    a[i] = i;
+    //}
+
+    //
+    //for (MyVector<int>::MyIterator it = a.begin(); it != a.end(); it++) {
+    //    std::cout << *it <<std::endl;
+    //}
+    //std::cout << "Hello World!\n";
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
