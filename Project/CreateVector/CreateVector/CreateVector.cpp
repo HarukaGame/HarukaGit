@@ -8,6 +8,10 @@ class MyClass {
 private:
     const char* m_text = "";
 public:
+    MyClass(){}
+    MyClass(const char* text) {
+        m_text = text;
+    }
     void SetText(const char* text) {
         m_text = text;
     }
@@ -18,26 +22,25 @@ public:
 
 int main()
 {
-    MyVector<MyClass> temp(10);
-    for (int i = 0; i < temp.Size(); i++) {
-        temp[i].SetText("a");
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    MyVector<MyClass> a;
+    a.PushBack(MyClass("a"));
+    a.PushBack(MyClass("b"));
+    a.PushBack(MyClass("c"));
+    a.PushBack(MyClass("d"));
+    a.PushBack(MyClass("e"));
+    a.PushBack(MyClass("f"));
+    a.Insert(MyClass("Z"), 1);
+    a.Erace(0);
+
+    for (MyVector<MyClass>::MyIterator it = a.begin(); it != a.end(); it++) {
+        (*it).Print();
     }
-    temp[3].SetText("adfsg");
 
-    for (int i = 0; i < temp.Size(); i++) {
-        temp[i].Print();
+    while (a.begin() != a.end()) {
+        a.PopBack();
     }
-
-        //MyVector<int> a(10);
-    //for (int i = 0; i < a.Size(); i++) {
-    //    a[i] = i;
-    //}
-
-    //
-    //for (MyVector<int>::MyIterator it = a.begin(); it != a.end(); it++) {
-    //    std::cout << *it <<std::endl;
-    //}
-    //std::cout << "Hello World!\n";
+    
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
