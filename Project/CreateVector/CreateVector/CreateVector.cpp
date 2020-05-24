@@ -20,10 +20,8 @@ public:
     }
 };
 
-int main()
-{
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    MyVector<MyClass> a;
+void FooA() {
+    CVector<MyClass> a;
     a.PushBack(MyClass("a"));
     a.PushBack(MyClass("b"));
     a.PushBack(MyClass("c"));
@@ -33,14 +31,54 @@ int main()
     a.Insert(MyClass("Z"), 1);
     a.Erace(0);
 
-    for (MyVector<MyClass>::MyIterator it = a.begin(); it != a.end(); it++) {
-        (*it).Print();
+    for (CVector<MyClass>::iterator it = a.begin(); it != a.end(); it++) {
+        it->Print();
     }
 
     while (a.begin() != a.end()) {
         a.PopBack();
     }
-    
+}
+
+void FooB() {
+    CVector<MyClass*> b;
+    b.PushBack(new MyClass("a"));
+    b.PushBack(new MyClass("b"));
+    b.PushBack(new MyClass("c"));
+    b.PushBack(new MyClass("d"));
+    b.PushBack(new MyClass("e"));
+    b.PushBack(new MyClass("f"));
+    b.Insert(new MyClass("Z"), 1);
+    delete b.Erace(0);
+
+    for (CVector<MyClass*>::iterator it = b.begin(); it != b.end(); it++) {
+        (*it)->Print();
+    }
+
+    while (b.begin() != b.end()) {
+        delete b.PopBack();
+    }
+}
+
+void FooC() {
+    CVector<int> c;
+    c.PushBack(1);
+    c.PushBack(2);
+    c.PushBack(3);
+    c.PushBack(4);
+    c.PushBack(5);
+
+    for (CVector<int>::iterator it = c.begin(); it != c.end(); it++){
+        printf("%d\n",*it);
+    }
+}
+
+int main()
+{
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    FooA();
+    FooB();
+    FooC();
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー

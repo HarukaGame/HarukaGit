@@ -1,248 +1,291 @@
 #pragma once
-//#include <iterator>
-//using namespace std;
+
 #define START_SIZE 16
 
-template<class T>class MyVector;
-
-template<class T> class MyVector {
-private:
-	T* buff = nullptr;
-	int buffCapacity = 0;
-	int buffCount = 0;
+template<class T> 
+class CVector {
 public:
-	explicit MyVector() {
-		buff = new T[START_SIZE];
-		buffCapacity = START_SIZE;
+	///@brief	コンストラクタ
+	CVector();
+	///@brief	コピーコンストラクタ
+	///@param[i]	_v	コピー元
+	CVector(const CVector& _v);
+
+	///@brief	ムーブコンストラクタ
+	///@param[i]	_v	移動元
+	CVector(CVector&& _v);
+
+	///@brief	デストラクタ
+	~CVector() {
+		delete[] m_pBuff;
 	};
-	//explicit MyVector(int n) {
-	//	buff = new T[n];
-	//	buffSize = n;
-	//};
-	~MyVector() {
-		delete[] buff;
-	};
-	MyVector(const MyVector& v);
-	MyVector& operator=(const MyVector& v);
-	MyVector(MyVector&&);
-	MyVector& operator=(MyVector&&);
-	T& operator[](int);
+
+	///@brief	代入演算子
+	///@param[i]	_v		代入元
+	///@return		CVector	代入先
+	CVector& operator=(const CVector& _v);
+	///@brief	代入演算子
+	///@param[i]	_v	代入元
+	///@return		CVector	代入先
+	CVector& operator=(CVector&& _v);
+
+	///@brief	配列添え字
+	///@param[i]	_v	添え字
+	///@return		T&	中身
+	T& operator[](int _index);
+
+	///@brief	要素数を取得
+	///@return		s32	要素数
 	int Size()const;
+
+	///@brief	データ領域容量を取得
+	///@return		s32	要素数
 	int Capacity()const;
-	void PushBack(T);
-	bool Insert(T, int num);
+
+	///@brief	末尾に要素を追加する
+	///@param[i]	_value	追加する要素
+	void PushBack(T _value);
+
+	///@brief	要素を挿入する
+	///@param[i]	_value	挿入する要素
+	///@param[i]	_num	挿入するインデックス
+	///@return		b8		成功したかどうか
+	bool Insert(T _value, int _num);
+
+	///@brief	末尾の要素を削除する
+	///@return		T	削除した要素
 	T PopBack();
-	T Erace(int num);
 
+	///@brief	要素を削除するする
+	///@param[i]	_num	削除するインデックス
+	///@return		T		削除する要素
+	T Erace(int _num);
 
+	///@brief	イテレーターのクラス
 	class MyIterator{
-		MyVector* vec;
-		int index;
+		CVector* m_pVec;
+		int m_index;
 	public:
-		MyIterator(MyVector* v, int n) {
-			vec = v;
-			index = n;
+		MyIterator(CVector* _v, int _n) {
+			m_pVec = _v;
+			m_index = _n;
 		}
 		//間接参照
-		T& operator*() { return vec->buff[index]; }
-		T* operator->() { return &vec->buff[index]; }
+		T& operator*() { return m_pVec->m_pBuff[m_index]; }
+		T* operator->() { return &m_pVec->m_pBuff[m_index]; }
 		//前置
 		MyIterator& operator++() {
-			index++;
+			m_index++;
 			return *this;
 		}
 		MyIterator& operator--() {
-			index--;
+			m_index--;
 			return *this;
 		}
 		//後置
-		MyIterator& operator++(int n) {
+		MyIterator& operator++(int _n) {
 			MyIterator iter(*this);
-			index++;
+			m_index++;
 			return iter;
 		}
-		MyIterator& operator--(int n) {
+		MyIterator& operator--(int _n) {
 			MyIterator iter(*this);
-			index--;
+			m_index--;
 			return iter;
 		}
 		//+= -=
-		MyIterator& operator+=(int n) {
-			index += n;
+		MyIterator& operator+=(int _n) {
+			m_index += _n;
 			return *this;
 		}
-		MyIterator& operator-=(int n) {
-			index -= n;
+		MyIterator& operator-=(int _n) {
+			m_index -= _n;
 			return *this;
 		}
 		//+ -
-		MyIterator operator+(int n) {
-			return MyIterator(vec, index + n);
+		MyIterator operator+(int _n) {
+			return MyIterator(m_pVec, m_index + _n);
 		}
-		MyIterator operator-(int n) {
-			return MyIterator(vec, index - n);
+		MyIterator operator-(int _n) {
+			return MyIterator(m_pVec, m_index - _n);
 		}
 		//比較演算子
-		bool operator==(const MyIterator& iter)const {
-			return vec == iter.vec && index && iter.index;
+		bool operator==(const MyIterator& _iter)const {
+			return m_pVec == _iter.m_pVec && m_index && _iter.m_index;
 		}
-		bool operator!=(const MyIterator& iter)const {
-			return vec != iter.vec || index != iter.index;
+		bool operator!=(const MyIterator& _iter)const {
+			return m_pVec != _iter.m_pVec || m_index != _iter.m_index;
 		}
-		bool operator<(const MyIterator& iter)const {
-			return vec == iter.vec && index < iter.index;
+		bool operator<(const MyIterator& _iter)const {
+			return m_pVec == _iter.m_pVec && m_index < _iter.m_index;
 		}
-		bool operator<=(const MyIterator& iter)const {
-			return vec == iter.vec && index <= iter.index;
+		bool operator<=(const MyIterator& _iter)const {
+			return m_pVec == _iter.m_pVec && m_index <= _iter.m_index;
 		}
-		bool operator>(const MyIterator& iter)const {
-			return vec == iter.vec && index > iter.index;
+		bool operator>(const MyIterator& _iter)const {
+			return m_pVec == _iter.m_pVec && m_index > _iter.m_index;
 		}
-		bool operator>=(const MyIterator& iter)const {
-			return vec == iter.vec && index >= iter.index;
+		bool operator>=(const MyIterator& _iter)const {
+			return m_pVec == _iter.m_pVec && m_index >= _iter.m_index;
 		}
 	};
 	MyIterator begin() {
 		return MyIterator(this, 0);
 	}
 	MyIterator end() {
-		return MyIterator(this, buffCount);
+		return MyIterator(this, m_buffCount);
 	}
+	typedef MyIterator iterator;
 
 private:
-	void BuffResize();
+	T* m_pBuff = nullptr;
+	int m_buffCapacity = 0;
+	int m_buffCount = 0;
+
+	void BuffResizeDouble();
 };
 
 
+template<class T>
+CVector<T>::CVector()
+{
+	m_pBuff = new T[START_SIZE];
+	m_buffCapacity = START_SIZE;
+}
+
 //コピーコンストラクタ
 template<class T>
-MyVector<T>::MyVector(const MyVector<T>& v) {
-	buff = new T[v.buffCapacity];
-	buffCapacity = v.buffCapacity;
-	for (int i = 0; i < buffCapacity; i++) {
-		buff[i] = v.buff[i];
+CVector<T>::CVector(const CVector<T>& v) {
+	m_pBuff = new T[v.m_buffCapacity];
+	m_buffCapacity = v.m_buffCapacity;
+	for (int i = 0; i < m_buffCapacity; i++) {
+		m_pBuff[i] = v.m_pBuff[i];
 	}
 }
+
+template<class T>
+CVector<T>::CVector(CVector&& v)
+{
+	m_pBuff = v.m_pBuff;
+	m_buffCapacity = v.m_buffCapacity;
+	v.m_pBuff = nullptr;
+	v.m_buffCapacity = 0;
+}
+
+
 
 //代入演算子
 template<class T>
-MyVector<T>& MyVector<T>::operator=(const MyVector& v)
+CVector<T>& CVector<T>::operator=(const CVector& v)
 {
 	if (this != &v) {
-		if (buffCapacity != v.buffCapacity) {
-			delete[] buff;
-			buffCapacity = v.buffCapacity;
-			buff = new T[buffCapacity];
+		if (m_buffCapacity != v.m_buffCapacity) {
+			delete[] m_pBuff;
+			m_buffCapacity = v.m_buffCapacity;
+			m_pBuff = new T[m_buffCapacity];
 		}
-		for (int i = 0; i < buffCapacity; i++) {
-			buff[i] = v.buff[i];
+		for (int i = 0; i < m_buffCapacity; i++) {
+			m_pBuff[i] = v.m_pBuff[i];
 		}
 	}
 	return *this;
 }
 
-template<class T>
-MyVector<T>::MyVector(MyVector&& v)
-{
-	buff = v.buff;
-	buffCapacity = v.buffCapacity;
-	v.buff = nullptr;
-	v.buffCapacity = 0;
-}
+
 
 template<class T>
-MyVector<T>& MyVector<T>::operator=(MyVector&& v)
+CVector<T>& CVector<T>::operator=(CVector&& v)
 {
 	if (this != &v) {
-		delete[] buff;
-		buff = v.buff;
-		buffCapacity = v.buffCapacity;
-		v.buff = nullptr;
-		v.buffCapacity = 0;
+		delete[] m_pBuff;
+		m_pBuff = v.m_pBuff;
+		m_buffCapacity = v.m_buffCapacity;
+		v.m_pBuff = nullptr;
+		v.m_buffCapacity = 0;
 	}
 	return *this;
 }
 
 template<class T>
-T& MyVector<T>::operator[](int i)
+T& CVector<T>::operator[](int i)
 {
-	if (i < 0 || i >= buffCapacity) {
+	if (i < 0 || i >= m_buffCapacity) {
 		throw;
 	}
-	return buff[i];
+	return m_pBuff[i];
 }
 
 template<class T>
-int MyVector<T>::Size() const
+int CVector<T>::Size() const
 {
-	return buffCapacity;
+	return m_buffCapacity;
 }
 
 template<class T>
-int MyVector<T>::Capacity() const
+int CVector<T>::Capacity() const
 {
-	return buffCapacity;
+	return m_buffCapacity;
 }
 
 template<class T>
-void MyVector<T>::PushBack(T value)
+void CVector<T>::PushBack(T value)
 {
-	if (buffCount == buffCapacity) {
-		BuffResize();
+	if (m_buffCount == m_buffCapacity) {
+		BuffResizeDouble();
 	}
-	buff[buffCount++] = value;
+	m_pBuff[m_buffCount++] = value;
 }
 
 template<class T>
-bool MyVector<T>::Insert(T value, int num)
+bool CVector<T>::Insert(T value, int num)
 {
-	if (num < 0 || buffCount < num) {
+	if (num < 0 || m_buffCount < num) {
 		return false;
 	}
-	if (buffCount == buffCapacity) {
-		BuffResize();
+	if (m_buffCount == m_buffCapacity) {
+		BuffResizeDouble();
 	}
-	for (int i = buffCount; i > num; i--) {
-		buff[i] = buff[i - 1];
+	for (int i = m_buffCount; i > num; i--) {
+		m_pBuff[i] = m_pBuff[i - 1];
 	}
-	buff[num] = value;
-	buffCount++;
+	m_pBuff[num] = value;
+	m_buffCount++;
 	return false;
 }
 
 template<class T>
-T MyVector<T>::PopBack()
+T CVector<T>::PopBack()
 {
-	if (buffCount == 0) {
+	if (m_buffCount == 0) {
 		return nullptr;
 	}
-	T temp = buff[buffCount-1];
-	buff[buffCount--] = nullptr;
+	T temp = m_pBuff[m_buffCount-1];
+	m_pBuff[m_buffCount--] = nullptr;
 	return temp;
 }
 
 template<class T>
-T MyVector<T>::Erace(int num)
+T CVector<T>::Erace(int num)
 {
-	T temp = buff[num];
-	for (int i = num; i < buffCount-1; i++) {
-		buff[i] = buff[i + 1];
+	T temp = m_pBuff[num];
+	for (int i = num; i < m_buffCount-1; i++) {
+		m_pBuff[i] = m_pBuff[i + 1];
 	}
-	buff[buffCount--] = nullptr;
+	m_pBuff[m_buffCount--] = nullptr;
 	return temp;
 }
 
 
 template<class T>
-void MyVector<T>::BuffResize()
+void CVector<T>::BuffResizeDouble()
 {
-	T* newBuff = new T[buffCapacity*2];
-	for (int i = 0; i < buffCapacity; i++) {
-		newBuff[i] = buff[i];
+	T* newBuff = new T[m_buffCapacity*2];
+	for (int i = 0; i < m_buffCapacity; i++) {
+		newBuff[i] = m_pBuff[i];
 	}
-	delete[] buff;
-	buff = newBuff;
-	buffCapacity *= 2;
+	delete[] m_pBuff;
+	m_pBuff = newBuff;
+	m_buffCapacity *= 2;
 }
 
 
