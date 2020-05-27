@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{d16ef0ff-7a08-467b-91f6-0330a693ea52}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="game\main.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\application.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\window.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\renderer.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\camera.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Mesh.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\device_input.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\command.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game\application.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\window.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\renderer.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Mesh.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\device_input.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\input_common.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\command.h">
+      <Filter>game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
