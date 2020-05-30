@@ -4,25 +4,39 @@
 #include <iostream>
 #include "my_list.h"
 
+class Test {
+private:
+    int value = 0;
+public:
+    Test(int n) { value = n; }
+    void Show() { std::cout << value; }
+};
+
 int main()
 {
-    CList<int> a;
-    a.PushBack(1);
-    a.PushBack(2);
-    a.PushBack(3);
-    a.PushBack(4);
-    a.PushBack(5);
-    a.Show();
-    std::cout << "Hello World!\n";
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    CList<Test*> a;
+    a.PushBack(new Test(1));
+    a.PushBack(new Test(2));
+    a.PushBack(new Test(3));
+    a.PushBack(new Test(4));
+
+    for (CList<Test*>::iterator iter = a.Begin(); iter != a.End(); iter=iter+1) {
+        (*iter)->Show();
+    }
+    std::cout << std::endl;
+
+    CList<Test> b;
+    b.PushBack(Test(5));
+    b.PushBack(Test(6));
+    b.PushBack(Test(7));
+    b.PushBack(Test(8));
+
+    for (CList<Test>::iterator iter = b.Begin(); iter != b.End();iter++) {
+        iter->Show();
+    }
+    while (a.Empty() == false) {
+        delete a.PopBack();
+    }
 }
 
-// プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
-// プログラムのデバッグ: F5 または [デバッグ] > [デバッグの開始] メニュー
-
-// 作業を開始するためのヒント: 
-//    1. ソリューション エクスプローラー ウィンドウを使用してファイルを追加/管理します 
-//   2. チーム エクスプローラー ウィンドウを使用してソース管理に接続します
-//   3. 出力ウィンドウを使用して、ビルド出力とその他のメッセージを表示します
-//   4. エラー一覧ウィンドウを使用してエラーを表示します
-//   5. [プロジェクト] > [新しい項目の追加] と移動して新しいコード ファイルを作成するか、[プロジェクト] > [既存の項目の追加] と移動して既存のコード ファイルをプロジェクトに追加します
-//   6. 後ほどこのプロジェクトを再び開く場合、[ファイル] > [開く] > [プロジェクト] と移動して .sln ファイルを選択します
