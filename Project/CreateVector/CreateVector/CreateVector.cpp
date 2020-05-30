@@ -49,14 +49,15 @@ void FooB() {
     b.PushBack(new MyClass("e"));
     b.PushBack(new MyClass("f"));
     b.Insert(new MyClass("Z"), 1);
-    delete b.Erace(0);
 
     for (CVector<MyClass*>::iterator it = b.begin(); it != b.end(); it++) {
         (*it)->Print();
     }
 
     while (b.begin() != b.end()) {
-        delete b.PopBack();
+        MyClass* temp = nullptr;
+        b.PopBack(temp);
+        delete temp;
     }
 }
 
@@ -76,6 +77,10 @@ void FooC() {
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    CVector<int> a;
+    a.PushBack(1);
+    a.PopBack();
+
     FooA();
     FooB();
     FooC();

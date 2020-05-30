@@ -54,12 +54,16 @@ public:
 
 	///@brief	末尾の要素を削除する
 	///@return		T	削除した要素
-	T PopBack();
+	void PopBack();
+
+	void PopBack(T& _ref);
 
 	///@brief	要素を削除するする
 	///@param[i]	_num	削除するインデックス
 	///@return		T		削除する要素
-	T Erace(int _num);
+	void Erace(int _num);
+
+	void Erace(int _num, T& _ref);
 
 	///@brief	イテレーターのクラス
 	class MyIterator{
@@ -254,25 +258,48 @@ bool CVector<T>::Insert(T value, int num)
 }
 
 template<class T>
-T CVector<T>::PopBack()
+void CVector<T>::PopBack()
 {
 	if (m_buffCount == 0) {
-		return nullptr;
+		return;
 	}
-	T temp = m_pBuff[m_buffCount-1];
-	m_pBuff[m_buffCount--] = nullptr;
-	return temp;
+	m_buffCount--;
+}
+template<class T>
+void CVector<T>::PopBack(T& _ref)
+{
+	if (m_buffCount == 0) {
+		return;
+	}
+	_ref = m_pBuff[m_buffCount - 1];
+	m_buffCount--;
 }
 
 template<class T>
-T CVector<T>::Erace(int num)
+void CVector<T>::Erace(int num)
 {
+	if (num < 0 || m_buffCount <= num) {
+		return;
+	}
 	T temp = m_pBuff[num];
 	for (int i = num; i < m_buffCount-1; i++) {
 		m_pBuff[i] = m_pBuff[i + 1];
 	}
-	m_pBuff[m_buffCount--] = nullptr;
-	return temp;
+	//m_pBuff[m_buffCount--] = NULL;
+	m_buffCount--;
+}
+
+template<class T>
+void CVector<T>::Erace(int _num, T& _ref)
+{
+	if (_num < 0 || m_buffCount <= _num) {
+		return;
+	}
+	_ref = m_pBuff[_num];
+	for (int i = _num; i < m_buffCount - 1; i++) {
+		m_pBuff[i] = m_pBuff[i + 1];
+	}
+	m_buffCount--;
 }
 
 

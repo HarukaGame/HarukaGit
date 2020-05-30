@@ -148,7 +148,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CreateVector.cpp" />
-    <ClCompile Include="my_vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="my_vector.h" />
