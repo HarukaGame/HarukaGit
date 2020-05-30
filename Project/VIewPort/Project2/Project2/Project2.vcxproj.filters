@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{d16ef0ff-7a08-467b-91f6-0330a693ea52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\res">
+      <UniqueIdentifier>{667ceb17-c81e-4fbb-ae65-17d9b0a04e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\res\shaderfiles">
+      <UniqueIdentifier>{42e53130-49e5-4d88-961b-0f725538e566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\res\vertexfiles">
+      <UniqueIdentifier>{b6ef5c6a-b74c-4a00-9917-f98a149d9a45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="game\main.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\application.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\window.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\renderer.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\camera.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Mesh.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\fileloader.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\vertexfiles\cube.cpp">
+      <Filter>game\res\vertexfiles</Filter>
+    </ClCompile>
+    <ClCompile Include="game\input.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game\application.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\window.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\renderer.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Mesh.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\fileloader.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\vertexfiles\cube.h">
+      <Filter>game\res\vertexfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="game\input.h">
+      <Filter>game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="game\ShaderFiles\Basic.shader">
+      <Filter>game\res\shaderfiles</Filter>
+    </None>
+  </ItemGroup>
+</Project>
