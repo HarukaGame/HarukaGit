@@ -3,23 +3,24 @@
 #ifndef __MY_LIST_H__
 #define __MY_LIST_H__
 
+
 ///@brief	ノードクラス
 template<class T>
 struct Node {
-	T m_value = NULL;		//
-	Node* m_pPrev = nullptr;//
-	Node* m_pNext = nullptr;//
+	T m_value = NULL;		//格納する値
+	Node* m_pPrev = nullptr;//前のノードポインタ
+	Node* m_pNext = nullptr;//後のノードポインタ
 
-	///@brief
+	///@brief	コンストラクタ
 	Node() {
 		m_value = NULL;
 		m_pPrev = this;
 		m_pNext = this;
 	}
-	///@brief
-	///@param[in]
-	///@param[in]
-	///@param[in]
+	///@brief	コンストラクタ
+	///@param[in]	_value	格納する値
+	///@param[in]	_prev	前のノードポインタ
+	///@param[in]	_next	後のノードポインタ
 	Node(T value, Node* prev, Node* next) {
 		m_value = value;
 		m_pPrev = prev;
@@ -30,161 +31,185 @@ template<class T>
 class CList {
 public:
 
-	///@brief
+	///@brief	コンストラクタ
 	CList();
 
-	///@brief
-	///@param[in]	_list
+	///@brief	コピーコンストラクタ
+	///@param[in]	_list	
 	CList(const CList& _list);
 
-	///@brief
+	///@brief	デストラクタ
 	~CList();
 	
-	///@brief
+	///@brief	代入演算子
 	///@param[in]	_list
 	///@return		CList
 	CList& operator=(const CList& _list);
 
-	///@brief
-	///@param[in]	_list
-	///@return		CList
+	///@brief	リストが空か判定
+	///@return		bool	true:空
 	bool Empty();
-	///@brief
+
+	///@brief	一番前に要素を入れる
 	///@param[in]	_value
 	void PushFront(T _value);
-	///@brief
+
+	///@brief	一番後ろに要素を入れる
 	///@param[in]	_value
 	void PushBack(T _value);
-	///@brief
-	///@return		T
+
+	///@brief	一番前の要素を取り出す
+	///@return	T
 	T PopFront();
-	///@brief
-	///@return		T
+
+	///@brief	一番後ろの要素を取り出す
+	///@return	T
 	T PopBack();
-	///@brief
+
+	///@brief	すべての要素を削除する
 	void Clear();
-	///@brief
-	///@return		int
+
+	///@brief	持っている要素数を返す
+	///@return	int	要素数
 	int Length();
 private:
-	///@brief
+	///@brief	要素を加える
 	///@param[in]	_value
-	///@param[in]	_node
+	///@param[in]	_node	加える位置の直前のノード
 	void Add(T _value, Node<T>* _node);
-	///@brief
-	///@param[in]	_node
-	///@return		T
+
+	///@brief	ノードを削除する
+	///@param[in]	_node	削除するノード
+	///@return		T	削除するノードに入っていた要素
 	T Remove(Node<T>* node);
 
-	Node<T>* m_root = nullptr;	//
-	int m_length = 0;			//
+	Node<T>* m_root = nullptr;	//環状リストのダミーノードポインタ
+	int m_length = 0;			//ノードの数
 
 public:
-	///@brief
-	class MyIterator {
+	///@brief	イテレータークラス
+	class CListIterator {
 	public:
-		///@brief
-		///@param[in]	_value
-		///@param[in]	_node
-		MyIterator(CList* _v, Node<T>* _node) {
-			m_pList = _v;
+		///@brief	コンストラクタ
+		///@param[in]	_list	リストクラス	
+		///@param[in]	_node	ノード
+		CListIterator(CList* _list, Node<T>* _node) {
+			m_pList = _list;
 			m_pNode = _node;
 		}
-		//MyIterator(CList* _v, Node<T>* _node) {
-		//	m_pList = _v;
-		//	m_pNode = _node;
-		//}
-		///@brief
-		///@return	T
+
+		///@brief	参照演算子
+		///@return	T&		
 		T& operator*() { return m_pNode->m_value; }
 
-		///@brief
-		///@return	T
+		///@brief	アロー演算子
+		///@return	T*		
 		T* operator->() { return &m_pNode->m_value; }
-		///@brief
-		///@return	T
-		MyIterator& operator++() {
+
+		///@brief	前置インクリメント
+		///@return	CListIterator&
+		CListIterator& operator++() {
 			m_pNode = m_pNode->m_pNext;
 		}
-		///@brief
-		///@return	T
-		MyIterator& operator--() {
+
+		///@brief	前置デクリメント
+		///@return	CListIterator&
+		CListIterator& operator--() {
 			m_pNode = m_pNode->m_pPrev;
 		}
-		///@brief
-		///@param[in]	_value
-		///@return	T
-		MyIterator& operator++(int n) {
-			MyIterator iter(*this);
+
+		///@brief	後置インクリメント(引数はダミー)
+		///@param[in]	_n	ダミー
+		///@return	CListIterator&
+		CListIterator& operator++(int n) {
+			CListIterator iter(*this);
 			m_pNode = m_pNode->m_pNext;
 			return iter;
 		}
-		///@brief
-		///@param[in]	_value
-		///@return	T
-		MyIterator& operator--(int n) {
-			MyIterator iter(*this);
+
+		///@brief	後置デクリメント(引数はダミー)
+		///@param[in]	_n	ダミー
+		///@return	CListIterator&
+		CListIterator& operator--(int n) {
+			CListIterator iter(*this);
 			m_pNode = m_pNode->m_pPrev;
 			return iter;
 		}
-		///@brief
-		///@param[in]	_value
-		///@return	T
-		MyIterator& operator+=(int n) {
+
+		///@brief	加算代入
+		///@param[in]	_n	加算数
+		///@return	CListIterator&
+		CListIterator& operator+=(int n) {
 			for (int i = 0; i < n; i++) {
 				m_pNode = m_pNode->m_pNext;
 			}
 			return *this;
 		}
-		///@brief
-		///@param[in]	_value
-		///@return	T
-		MyIterator& operator-=(int n) {
+
+		///@brief	減算代入
+		///@param[in]	_n	減算数
+		///@return	CListIterator&
+		CListIterator& operator-=(int n) {
 			for (int i = 0; i < n; i++) {
 				m_pNode = m_pNode->m_pPrev;
 			}
 			return *this;
 		}
-		///@brief
-		///@param[in]	_value
-		///@return	T
-		MyIterator operator+(int n) {
+
+		///@brief	加算
+		///@param[in]	_n
+		///@return	CListIterator
+		CListIterator operator+(int n) {
 			Node<T>* temp = m_pNode;
 			for (int i = 0; i < n; i++) {
 				temp = temp->m_pNext;
 			}
-			return MyIterator(m_pList, temp);
+			return CListIterator(m_pList, temp);
 		}
-		///@brief
-		///@param[in]	_value
-		///@return	T
-		MyIterator operator-(int n) {
+
+		///@brief	減算
+		///@param[in]	_n
+		///@return	CListIterator
+		CListIterator operator-(int n) {
 			Node<T>* temp = m_pNode;
 			for (int i = 0; i < n; i++) {
 				temp = temp->m_pPrev;
 			}
-			return MyIterator(m_pList, temp);
+			return CListIterator(m_pList, temp);
 		}
-		//比較演算子
-		bool operator==(const MyIterator& _iter)const {
+
+		///@brief	比較演算子	==
+		///@param[in]	_iter
+		///@return	T
+		bool operator==(const CListIterator& _iter)const {
 			return m_pList == _iter.m_pList && m_pNode == _iter.m_pNode;
 		}
-		bool operator!=(const MyIterator& _iter)const {
+
+		///@brief	比較演算子	!=
+		///@param[in]	_iter
+		///@return	T
+		bool operator!=(const CListIterator& _iter)const {
 			return m_pList != _iter.m_pList || m_pNode != _iter.m_pNode;
 		}
 
 	private:
-		CList* m_pList = nullptr;
-		Node<T>* m_pNode = nullptr;
+		CList* m_pList = nullptr;	//リストのポインタ
+		Node<T>* m_pNode = nullptr;	//ノードのポインタ
 
 	};
-	MyIterator Begin() {
-		return MyIterator(this, m_root->m_pNext);
+
+	///@brief	初めのイテレータを取得
+	///@return	CListIterator
+	CListIterator Begin() {
+		return CListIterator(this, m_root->m_pNext);
 	}
-	MyIterator End() {
-		return MyIterator(this, m_root);
+
+	///@brief	最後のイテレータを取得
+	///@return	CListIterator
+	CListIterator End() {
+		return CListIterator(this, m_root);
 	}
-	typedef MyIterator iterator;
+	typedef CListIterator iterator;
 
 };
 
@@ -280,7 +305,7 @@ T CList<T>::PopBack() {
 }
 
 template<class T>
-inline void CList<T>::Clear()
+void CList<T>::Clear()
 {
 	while (Empty() == false) {
 		PopBack();
@@ -289,7 +314,7 @@ inline void CList<T>::Clear()
 }
 
 template<class T>
-inline int CList<T>::Length()
+int CList<T>::Length()
 {
 	return m_length;
 }
