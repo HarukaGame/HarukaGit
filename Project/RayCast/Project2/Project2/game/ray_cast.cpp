@@ -57,23 +57,18 @@ bool CRayCast::RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const gl
 	glm::vec3 edge2 = point3 - point1;
 	glm::vec3 fromOrigin = _ray.m_origin - point1;
 
-	float determinU = glm::determinant(glm::mat3(fromOrigin.x, edge2.x, _ray.m_dirction.x,
-		fromOrigin.y, edge2.y, _ray.m_dirction.y,
-		fromOrigin.z, edge2.z, _ray.m_dirction.z));
-	float determinV = glm::determinant(glm::mat3(edge1.x, fromOrigin.x, _ray.m_dirction.x,
-		edge1.y, fromOrigin.y, _ray.m_dirction.y,
-		edge1.z, fromOrigin.z, _ray.m_dirction.z));
-	float determinT = glm::determinant(glm::mat3(edge1.x, edge2.x, fromOrigin.x,
-		edge1.y, edge2.y, fromOrigin.y,
-		edge1.z, edge2.z, fromOrigin.z));
-	float determinA = glm::determinant(glm::mat3(edge1.x, edge2.x, _ray.m_dirction.x,
-		edge1.y, edge2.y, _ray.m_dirction.y,
-		edge1.z, edge2.z, _ray.m_dirction.z));
-	float u = determinU / determinA;
-	float v = determinV / determinA;
-	float t = -determinT / determinA;
-	//printf("u:%f	v:%f	t:%f\n", u, v, t);
+	glm::mat3 mat = glm::mat3(
+		edge1.x, edge2.x, -_ray.m_dirction.x,
+		edge1.y, edge2.y, -_ray.m_dirction.y,
+		edge1.z, edge2.z, -_ray.m_dirction.z
+	);
+	glm::vec3 kai = glm::transpose(glm::inverse(mat)) * fromOrigin;
+
+	float u = kai.x;
+	float v = kai.y;
+	float t = kai.z;
 	float dot = glm::dot(_ray.m_dirction, glm::cross(edge2, edge1));
+	//printf("u:%f	v:%f	t:%f\n", u, v, t);
 
 	bool hit = u >= 0 &&
 		v >= 0 &&
@@ -87,6 +82,40 @@ bool CRayCast::RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const gl
 	}
 
 	return	hit;
+	//glm::vec3 edge1 = point2 - point1;
+	//glm::vec3 edge2 = point3 - point1;
+	//glm::vec3 fromOrigin = _ray.m_origin - point1;
+
+	//float determinU = glm::determinant(glm::mat3(fromOrigin.x, edge2.x, _ray.m_dirction.x,
+	//	fromOrigin.y, edge2.y, _ray.m_dirction.y,
+	//	fromOrigin.z, edge2.z, _ray.m_dirction.z));
+	//float determinV = glm::determinant(glm::mat3(edge1.x, fromOrigin.x, _ray.m_dirction.x,
+	//	edge1.y, fromOrigin.y, _ray.m_dirction.y,
+	//	edge1.z, fromOrigin.z, _ray.m_dirction.z));
+	//float determinT = glm::determinant(glm::mat3(edge1.x, edge2.x, fromOrigin.x,
+	//	edge1.y, edge2.y, fromOrigin.y,
+	//	edge1.z, edge2.z, fromOrigin.z));
+	//float determinA = glm::determinant(glm::mat3(edge1.x, edge2.x, _ray.m_dirction.x,
+	//	edge1.y, edge2.y, _ray.m_dirction.y,
+	//	edge1.z, edge2.z, _ray.m_dirction.z));
+	//float u = determinU / determinA;
+	//float v = determinV / determinA;
+	//float t = -determinT / determinA;
+	////printf("u:%f	v:%f	t:%f\n", u, v, t);
+	//float dot = glm::dot(_ray.m_dirction, glm::cross(edge2, edge1));
+
+	//bool hit = u >= 0 &&
+	//	v >= 0 &&
+	//	0 <= u + v &&
+	//	u + v <= 1 &&
+	//	t > 0 &&
+	//	dot > 0;
+	//if (hit == true) {
+	//	rayCastHit.m_point = _ray.m_origin + t * _ray.m_dirction;
+	//	rayCastHit.m_normal =  glm::normalize(glm::cross(edge1, edge2));
+	//}
+
+	//return	hit;
 }
 
 bool CRayCast::RayHitMesh(const Ray& _ray, const CMesh* _mesh)
