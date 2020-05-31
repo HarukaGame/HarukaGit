@@ -13,8 +13,9 @@
 #include <math.h>
 #include "input.h"
 
-#define M_PI 3.14159265358979
-#define deg_to_rad(deg) (((deg)/360)*2*M_PI)
+#include "ray_cast.h"
+
+#include "common_math.h"
 
 struct ShaderProgramSource {
     std::string VertexSource;
@@ -77,13 +78,6 @@ void CRenderer::StartDisplay() {
 }
 
 void CRenderer::MeshDraw(CMesh* _mesh) {
-    //glClearDepth(0.0f);
-
-    //glEnable(GL_DEPTH_TEST);
-
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //glClearDepth(1.0f);
-
 
 
     glUseProgram(_mesh->m_programID);
@@ -96,15 +90,15 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     test += 0.1f;
 
 
-    glm::vec3 cameraPos = glm::vec3(5, 0, 5);
+    glm::vec3 cameraPos = glm::vec3(0, 0, 5);
 
 
     glm::mat4 view = GetViewMatirix(
         cameraPos,
-        glm::vec3(45, 0, 0)
+        glm::vec3(0, 0, 0)
     );
 
-    glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1,1);
+    glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1, 1);
 
 
     //----------------------------------
@@ -122,7 +116,7 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     glm::mat4 inverseView = glm::inverse(view);
 
     //スクリーンワールド座標
-    glm::vec4 toScreenWorldPos =inverseView * inverseProjection * inversePort * preScreenPos;
+    glm::vec4 toScreenWorldPos = inverseView * inverseProjection * inversePort * preScreenPos;
     glm::vec3 screenWorldPos3 = glm::vec3(toScreenWorldPos.x, toScreenWorldPos.y, toScreenWorldPos.z);
     //任意の点
     glm::vec3 floorPoint = glm::vec3(0, 0, -2);
@@ -131,27 +125,44 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
 
     glm::vec3 objectPos = (glm::dot(normalVec, floorPoint - cameraPos) / glm::dot(normalVec, screenWorldPos3 - cameraPos)) * (screenWorldPos3 - cameraPos) + cameraPos;
 
-    printf("test:%f     x:%f  y:%f  z:%f  w:%f   x:%f  y:%f  z:%f\n", 
-                test, 
-                toScreenWorldPos.x, 
-                toScreenWorldPos.y, 
-                toScreenWorldPos.z, 
-                toScreenWorldPos.w, 
-                objectPos.x,
-                objectPos.y,
-                objectPos.z
-    );
+    //printf("test:%f     x:%f  y:%f  z:%f  w:%f   x:%f  y:%f  z:%f\n",
+    //    test,
+    //    toScreenWorldPos.x,
+    //    toScreenWorldPos.y,
+    //    toScreenWorldPos.z,
+    //    toScreenWorldPos.w,
+    //    objectPos.x,
+    //    objectPos.y,
+    //    objectPos.z
+    //);
     //----------------------------------
-    glm::mat4 model = GetModelMatirix(
-        glm::vec3(objectPos.x, objectPos.y, objectPos.z),
-        glm::vec3(test, test, 0),
-        glm::vec3(1, 1, 1)
-    );
+    _mesh->m_rot.x = test*10;
+    _mesh->m_rot.y = test*10;
+    _mesh->m_scale.x = 5;
+    glm::mat4 model = _mesh->GetModelMatrix();
 
 
-    glm::mat4 mvp =   pro * view * model;
+    glm::mat4 mvp = pro * view * model;
 
     glm::vec4 pos = glm::vec4(1, 1, 1, 0);
+
+    //-----------------------------------------------------
+    Ray ray = Ray(cameraPos, screenWorldPos3 - cameraPos);
+    //float ver[9] = {
+    //    0,0,-2,
+    //    1,0,-2,
+    //    0,1,-2
+    //};
+    //bool hit = CRayCast::RayHitTriangle(ray, ver);
+    bool hit = CRayCast::RayHitMesh(ray, _mesh);
+    if (hit) {
+        printf("hit\n");
+    }
+    else {
+        printf("none\n");
+    }
+    //-----------------------------------------------------
+
 
 
     glUniformMatrix4fv(_mesh->m_uniformModelMat, 1, GL_FALSE, &mvp[0][0]);

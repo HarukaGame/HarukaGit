@@ -5,6 +5,7 @@
 
 #include "vertexfiles/cube.h"
 
+#include "common_math.h"
 GLuint CMesh::CreateShaderProgram(GLuint programID) {
 
 
@@ -91,4 +92,67 @@ void CMesh::SetLight(float x, float y, float z)
 {
     float length = sqrtf(x * x + y * y + z * z);
     glUniform3f(m_uniformLight, x/length, y/length, z/length);
+}
+
+glm::mat4 CMesh::GetModelMatrix() const
+{
+    glm::mat4 transMat = GetTransMatrix(m_pos);
+    glm::mat4 rotateMat = GetRotateMatrix(m_rot);
+    glm::mat4 scaleMat = GetScaleMatrix(m_scale);
+
+    return transMat * rotateMat * scaleMat;
+}
+
+glm::mat4 CMesh::GetTransMatrix(glm::vec3 trans)const {
+    //glm::mat4 transMat = {
+    //1,0,0,trans.x,
+    //0,1,0,trans.y,
+    //0,0,1,trans.z,
+    //0,0,0,1
+    //};
+    glm::mat4 transMat = {
+    1,0,0,0,
+    0,1,0,0,
+    0,0,1,0,
+    trans.x,trans.y,trans.z,1
+    };
+    return transMat;
+}
+
+
+glm::mat4 CMesh::GetRotateMatrix(glm::vec3 rotate)const {
+    rotate.x = deg_to_rad(rotate.x);
+    rotate.y = deg_to_rad(rotate.y);
+    rotate.z = deg_to_rad(rotate.z);
+    glm::mat4 rotateX = {
+    1,      0,      0,      0,
+    0,      cos(rotate.x), -sin(rotate.x),0,
+    0,      sin(rotate.x), cos(rotate.x), 0,
+    0,      0,      0,      1
+    };
+
+    glm::mat4 rotateY = {
+        cos(rotate.y), 0,      -sin(rotate.y),0,
+        0,      1,      0 ,     0,
+        sin(rotate.y), 0,      cos(rotate.y), 0,
+        0,      0,      0,      1
+    };
+
+    glm::mat4 rotateZ = {
+        cos(rotate.z), -sin(rotate.z),0,      0,
+        sin(rotate.z), cos(rotate.z), 0,      0,
+        0,      0,      1,      0,
+        0,      0,      0,      1
+    };
+    glm::mat4 rotateMat = rotateX * rotateY * rotateZ;
+    return rotateMat;
+}
+glm::mat4 CMesh::GetScaleMatrix(glm::vec3 scale)const {
+    glm::mat4 scaleMat = {
+    scale.x ,0      ,0      ,0,
+    0       ,scale.y,0      ,0,
+    0       ,0      ,scale.z,0,
+    0       ,0      ,0      ,1
+    };
+    return scaleMat;
 }

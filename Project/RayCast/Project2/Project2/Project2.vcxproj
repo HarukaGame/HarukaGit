@@ -39,6 +39,7 @@
     <ClInclude Include="game\renderer.h" />
     <ClInclude Include="game\vertexfiles\cube.h" />
     <ClInclude Include="game\window.h" />
+    <ClInclude Include="game\common_math.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="game\ShaderFiles\Basic.shader" />

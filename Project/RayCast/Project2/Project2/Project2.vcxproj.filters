@@ -71,6 +71,9 @@
     <ClInclude Include="game\ray_cast.h">
       <Filter>game</Filter>
     </ClInclude>
+    <ClInclude Include="game\common_math.h">
+      <Filter>game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
