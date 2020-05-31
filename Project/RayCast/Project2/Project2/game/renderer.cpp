@@ -90,12 +90,12 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     test += 0.1f;
 
 
-    glm::vec3 cameraPos = glm::vec3(0, 0, 5);
+    glm::vec3 cameraPos = glm::vec3(0, 5, 5);
 
 
     glm::mat4 view = GetViewMatirix(
         cameraPos,
-        glm::vec3(0, 0, 0)
+        glm::vec3(45, 0, 0)
     );
 
     glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1, 1);
@@ -136,8 +136,9 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     //    objectPos.z
     //);
     //----------------------------------
-    _mesh->m_rot.x = test*10;
-    _mesh->m_rot.y = test*10;
+    //_mesh->m_rot.x = test*10;
+    //_mesh->m_rot.y = test*10;
+    _mesh->m_rot.z = test*10;
     _mesh->m_scale.x = 5;
     glm::mat4 model = _mesh->GetModelMatrix();
 
@@ -154,9 +155,12 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     //    0,1,-2
     //};
     //bool hit = CRayCast::RayHitTriangle(ray, ver);
-    bool hit = CRayCast::RayHitMesh(ray, _mesh);
+    RayCastHit raycasthit;
+    bool hit = CRayCast::RayHitMesh(ray, _mesh,raycasthit);
     if (hit) {
-        printf("hit\n");
+        printf("hit     point(X:%f    Y:%f    Z:%f)    normal(X:%f    Y:%f    Z:%f)\n",
+            raycasthit.m_point.x, raycasthit.m_point.y, raycasthit.m_point.z,
+            raycasthit.m_normal.x, raycasthit.m_normal.y, raycasthit.m_normal.z);
     }
     else {
         printf("none\n");

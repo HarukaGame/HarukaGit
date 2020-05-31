@@ -27,7 +27,9 @@ class CRayCast {
 public:
 	static bool RayHitTriangle(const Ray& _ray,const float* _vertices);
 	static bool RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const glm::vec3& point2, const glm::vec3& point3);
+	static bool RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const glm::vec3& point2, const glm::vec3& point3, RayCastHit& rayCastHit);
 	static bool RayHitMesh(const Ray& _ray, const CMesh* _mesh);
+	static bool RayHitMesh(const Ray& _ray, const CMesh* _mesh,RayCastHit& rayCastHit);
 };
 
 
