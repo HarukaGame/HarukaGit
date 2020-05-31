@@ -36,6 +36,7 @@ private:
 	glm::mat4 GetRotateMatrix(glm::vec3 rotate);
 	glm::mat4 GetScaleMatrix(glm::vec3 scale);
 	glm::mat4 GetProjectionMatrix(float _angle, float _aspect, float _far, float _near);
+	//正規化デバイス座標からスクリーン座標への変換
 	glm::mat4 GetViewPortMatrix(float _width, float hwight);
 	bool GLSetUp(HWND _hwnd);
 	void GLRelease();

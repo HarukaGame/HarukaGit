@@ -89,73 +89,52 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
 
     test += 0.1f;
 
-
+    //カメラ座標の設定
     glm::vec3 cameraPos = glm::vec3(0, 5, 5);
-
-
+    //モデル行列の取得
+    glm::mat4 model = _mesh->GetModelMatrix();
+    //ビュー行列の取得
     glm::mat4 view = GetViewMatirix(
         cameraPos,
         glm::vec3(45, 0, 0)
     );
-
+    //プロジェクション行列の取得
     glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1, 1);
 
-
-    //----------------------------------
-    glm::vec4 worldPosition = glm::vec4(test, test, 0, 1);
+    //ビューポート行列の取得
     glm::mat4 viewportMat = GetViewPortMatrix((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
-    glm::vec4 screenPosition = viewportMat * pro * view * worldPosition;
-    screenPosition /= screenPosition.w;
-    //printf("test:%f     x:%f  y:%f  z:%f   z:%f\n", test,screenPosition.x, screenPosition.y, screenPosition.z, screenPosition.w);
 
-    POINT mouse = Input::GetMousePosition();
-    glm::vec4 preScreenPos = glm::vec4(mouse.x, mouse.y, -1, 1);
-
+    //ビューポート行列の逆行列
     glm::mat4 inversePort = glm::inverse(viewportMat);
+    //プロジェクション行列の逆行列
     glm::mat4 inverseProjection = glm::inverse(pro);
+    //ビュー行列の逆行列
     glm::mat4 inverseView = glm::inverse(view);
 
-    //スクリーンワールド座標
+    //マウス座標（スクリーン座標）
+    POINT mouse = Input::GetMousePosition();
+    //ベクトル４に登録（zは正規化デバイスの一番手前の値=`near）
+    glm::vec4 preScreenPos = glm::vec4(mouse.x, mouse.y, -1, 1);
+
+    //スクリーンのワールド座標上でのマウスの座標
     glm::vec4 toScreenWorldPos = inverseView * inverseProjection * inversePort * preScreenPos;
     glm::vec3 screenWorldPos3 = glm::vec3(toScreenWorldPos.x, toScreenWorldPos.y, toScreenWorldPos.z);
-    //任意の点
-    glm::vec3 floorPoint = glm::vec3(0, 0, -2);
-    //法線
-    glm::vec3 normalVec = glm::vec3(0, 0, 1);
-
-    glm::vec3 objectPos = (glm::dot(normalVec, floorPoint - cameraPos) / glm::dot(normalVec, screenWorldPos3 - cameraPos)) * (screenWorldPos3 - cameraPos) + cameraPos;
-
-    //printf("test:%f     x:%f  y:%f  z:%f  w:%f   x:%f  y:%f  z:%f\n",
-    //    test,
-    //    toScreenWorldPos.x,
-    //    toScreenWorldPos.y,
-    //    toScreenWorldPos.z,
-    //    toScreenWorldPos.w,
-    //    objectPos.x,
-    //    objectPos.y,
-    //    objectPos.z
-    //);
-    //----------------------------------
+    
+    //モデルの変数設定
     //_mesh->m_rot.x = test*10;
     //_mesh->m_rot.y = test*10;
     _mesh->m_rot.z = test*10;
     _mesh->m_scale.x = 5;
-    glm::mat4 model = _mesh->GetModelMatrix();
 
-
+    //MVP行列の計算
     glm::mat4 mvp = pro * view * model;
 
-    glm::vec4 pos = glm::vec4(1, 1, 1, 0);
 
-    //-----------------------------------------------------
+    //レイの準備
     Ray ray = Ray(cameraPos, screenWorldPos3 - cameraPos);
-    //float ver[9] = {
-    //    0,0,-2,
-    //    1,0,-2,
-    //    0,1,-2
-    //};
-    //bool hit = CRayCast::RayHitTriangle(ray, ver);
+    //あたったオブジェクトの情報を格納
     RayCastHit raycasthit;
+    //当たったかどうか
     bool hit = CRayCast::RayHitMesh(ray, _mesh,raycasthit);
     if (hit) {
         printf("hit     point(X:%f    Y:%f    Z:%f)    normal(X:%f    Y:%f    Z:%f)\n",
@@ -165,7 +144,6 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     else {
         printf("none\n");
     }
-    //-----------------------------------------------------
 
 
 
@@ -486,17 +464,26 @@ glm::mat4 CRenderer::GetProjectionMatrix(float _angle, float _aspect, float _far
 
 glm::mat4 CRenderer::GetViewPortMatrix(float _width, float _height)
 {
-    //glm::mat4 ret = {
-    //    _width/2.0f,0,0,_width/2.0f,
-    //    0,-_height/2.0f,0,_height/2.0f,
-    //    0,0,1,0,
-    //    0,0,0,1
-    //};
     glm::mat4 ret = {
-        _width/2.0f,0,0,0,
-        0,-_height/2.0f,0,0,
-        0,0,1,0,
-        _width/2.0f,_height/2.0f,0,1
+        _width/2.0f,    //size change
+        0,
+        0,
+        0,
+
+        0,
+        -_height/2.0f,  //size change
+        0,
+        0,
+
+        0,
+        0,
+        1,
+        0,
+
+        _width/2.0f,    //transform
+        _height/2.0f,   //transform
+        0,
+        1
     };
     return ret;
 }
