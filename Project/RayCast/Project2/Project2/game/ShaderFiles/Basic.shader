@@ -1,4 +1,4 @@
-#shader vertex
+﻿#shader vertex
 #version 120
 attribute vec3 position;
 attribute vec3 normals;

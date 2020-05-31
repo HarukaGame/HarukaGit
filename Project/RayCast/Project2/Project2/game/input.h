@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <windows.h>
 
 typedef unsigned char BYTE;
@@ -6,52 +6,52 @@ typedef struct tagPOINT POINT;
 
 /**
 	@class Input
-	@brief “ü—Í‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+	@brief å…¥åŠ›ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 */
 class Input {
 
-	/*! ƒRƒ“ƒXƒgƒ‰ƒNƒ^*/
+	/*! ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿*/
 	private:Input();
 
-	/*! @brief InputƒNƒ‰ƒX‚ğ¶¬‚·‚éŠÖ”
-		@return ¬Œ÷ InputƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX,¸”s NULL
-		@note ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ŠJn‚Éˆê“x‚¾‚¯Às‚·‚é
+	/*! @brief Inputã‚¯ãƒ©ã‚¹ã‚’ç”Ÿæˆã™ã‚‹é–¢æ•°
+		@return æˆåŠŸ Inputã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹,å¤±æ•— NULL
+		@note ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³é–‹å§‹æ™‚ã«ä¸€åº¦ã ã‘å®Ÿè¡Œã™ã‚‹
 	*/
 	public:static Input* CreateInstance();
 
 	public:static void SetWnd(HWND _hwnd);
 
 
-	/*! @brief ƒCƒ“ƒXƒ^ƒ“ƒX‚ğíœ‚·‚éŠÖ”
-		@note ƒAƒvƒŠƒP[ƒVƒ‡ƒ“I—¹‚ÉÀs‚·‚é
+	/*! @brief ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å‰Šé™¤ã™ã‚‹é–¢æ•°
+		@note ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³çµ‚äº†æ™‚ã«å®Ÿè¡Œã™ã‚‹
 	*/
 	public:void static DestroyInstance();
 
 
-	/*! @brief “ü—Í‚ğ’~Ï‚·‚éŠÖ”
-		@note “ü—Í‚³‚ê‚½ƒL[‚ğd•¡‚È‚µ‚Å“o˜^‚µ‚Ä‚¢‚­
+	/*! @brief å…¥åŠ›ã‚’è“„ç©ã™ã‚‹é–¢æ•°
+		@note å…¥åŠ›ã•ã‚ŒãŸã‚­ãƒ¼ã‚’é‡è¤‡ãªã—ã§ç™»éŒ²ã—ã¦ã„ã
 	*/
 	public:void static StackInput();
 
-	/*! @brief “ü—Í‚Ì’~Ï‚ğŠJ•ú‚·‚éŠÖ”
+	/*! @brief å…¥åŠ›ã®è“„ç©ã‚’é–‹æ”¾ã™ã‚‹é–¢æ•°
 	*/
 	public:void static ReleaseInput();
 
-	/*! @brief ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
-		@param int key ’²‚×‚éƒL[
+	/*! @brief ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹
+		@param int key èª¿ã¹ã‚‹ã‚­ãƒ¼
 	*/
 	public:bool static GetKey(const int key);
 
 
-	/*! @brief ƒL[‚ª‰Ÿ‚³‚ên‚ß‚½‚©‚Ç‚¤‚©
-		@param int key ’²‚×‚éƒL[
+	/*! @brief ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œå§‹ã‚ãŸã‹ã©ã†ã‹
+		@param int key èª¿ã¹ã‚‹ã‚­ãƒ¼
 	*/
 	public:bool static GetKeyDown(const int key);
 
 
-	/*! @brief ƒL[‚ª—£‚³‚ê‚½‚©‚Ç‚¤‚©
-		@param int key ’²‚×‚éƒL[
-		@param int key ’²‚×‚éƒL[
+	/*! @brief ã‚­ãƒ¼ãŒé›¢ã•ã‚ŒãŸã‹ã©ã†ã‹
+		@param int key èª¿ã¹ã‚‹ã‚­ãƒ¼
+		@param int key èª¿ã¹ã‚‹ã‚­ãƒ¼
 	*/
 	public:bool static GetKeyUp(const int key);
 
@@ -60,8 +60,8 @@ class Input {
 	public:float static GetMouseWheel();
 
 	#if DEBUG_MODE
-	/*! @brief ‘ÎÛ‚ÌƒL[‚Ìó‘Ô‚ğ•\¦
-		@param int key ’²‚×‚éƒL[
+	/*! @brief å¯¾è±¡ã®ã‚­ãƒ¼ã®çŠ¶æ…‹ã‚’è¡¨ç¤º
+		@param int key èª¿ã¹ã‚‹ã‚­ãƒ¼
 	*/
 	public:void static ShowInputState(BYTE);
 	#endif

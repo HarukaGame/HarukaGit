@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef __RENDERER_H__
 #define __RENDERER_H__
 #include <Windows.h>
@@ -36,7 +36,7 @@ private:
 	glm::mat4 GetRotateMatrix(glm::vec3 rotate);
 	glm::mat4 GetScaleMatrix(glm::vec3 scale);
 	glm::mat4 GetProjectionMatrix(float _angle, float _aspect, float _far, float _near);
-	//³‹K‰»ƒfƒoƒCƒXÀ•W‚©‚çƒXƒNƒŠ[ƒ“À•W‚Ö‚Ì•ÏŠ·
+	//æ­£è¦åŒ–ãƒ‡ãƒã‚¤ã‚¹åº§æ¨™ã‹ã‚‰ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ã¸ã®å¤‰æ›
 	glm::mat4 GetViewPortMatrix(float _width, float hwight);
 	bool GLSetUp(HWND _hwnd);
 	void GLRelease();

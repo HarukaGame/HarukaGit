@@ -1,4 +1,4 @@
-#include "renderer.h"
+ï»¿#include "renderer.h"
 #include "Mesh.h"
 #include "GL/glew.h"
 #include <cmath>
@@ -55,7 +55,7 @@ bool CRenderer::Initialize(HWND _hwnd) {
     m_hwnd = _hwnd;
 
     if (GLSetUp(_hwnd) == false) {
-        printf("GL‚ÌƒZƒbƒgƒAƒbƒv‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("GLã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—ã«å¤±æ•—ã—ã¾ã—ãŸ");
         return false;
     }
 
@@ -89,52 +89,52 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
 
     test += 0.1f;
 
-    //ƒJƒƒ‰À•W‚Ìİ’è
+    //ã‚«ãƒ¡ãƒ©åº§æ¨™ã®è¨­å®š
     glm::vec3 cameraPos = glm::vec3(0, 5, 5);
-    //ƒ‚ƒfƒ‹s—ñ‚Ìæ“¾
+    //ãƒ¢ãƒ‡ãƒ«è¡Œåˆ—ã®å–å¾—
     glm::mat4 model = _mesh->GetModelMatrix();
-    //ƒrƒ…[s—ñ‚Ìæ“¾
+    //ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã®å–å¾—
     glm::mat4 view = GetViewMatirix(
         cameraPos,
         glm::vec3(45, 0, 0)
     );
-    //ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚Ìæ“¾
+    //ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã®å–å¾—
     glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1, 1);
 
-    //ƒrƒ…[ƒ|[ƒgs—ñ‚Ìæ“¾
+    //ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆè¡Œåˆ—ã®å–å¾—
     glm::mat4 viewportMat = GetViewPortMatrix((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
 
-    //ƒrƒ…[ƒ|[ƒgs—ñ‚Ì‹ts—ñ
+    //ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆè¡Œåˆ—ã®é€†è¡Œåˆ—
     glm::mat4 inversePort = glm::inverse(viewportMat);
-    //ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚Ì‹ts—ñ
+    //ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—ã®é€†è¡Œåˆ—
     glm::mat4 inverseProjection = glm::inverse(pro);
-    //ƒrƒ…[s—ñ‚Ì‹ts—ñ
+    //ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã®é€†è¡Œåˆ—
     glm::mat4 inverseView = glm::inverse(view);
 
-    //ƒ}ƒEƒXÀ•WiƒXƒNƒŠ[ƒ“À•Wj
+    //ãƒã‚¦ã‚¹åº§æ¨™ï¼ˆã‚¹ã‚¯ãƒªãƒ¼ãƒ³åº§æ¨™ï¼‰
     POINT mouse = Input::GetMousePosition();
-    //ƒxƒNƒgƒ‹‚S‚É“o˜^iz‚Í³‹K‰»ƒfƒoƒCƒX‚Ìˆê”Ôè‘O‚Ì’l=`nearj
+    //ãƒ™ã‚¯ãƒˆãƒ«ï¼”ã«ç™»éŒ²ï¼ˆzã¯æ­£è¦åŒ–ãƒ‡ãƒã‚¤ã‚¹ã®ä¸€ç•ªæ‰‹å‰ã®å€¤=`nearï¼‰
     glm::vec4 preScreenPos = glm::vec4(mouse.x, mouse.y, -1, 1);
 
-    //ƒXƒNƒŠ[ƒ“‚Ìƒ[ƒ‹ƒhÀ•Wã‚Å‚Ìƒ}ƒEƒX‚ÌÀ•W
+    //ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ä¸Šã§ã®ãƒã‚¦ã‚¹ã®åº§æ¨™
     glm::vec4 toScreenWorldPos = inverseView * inverseProjection * inversePort * preScreenPos;
     glm::vec3 screenWorldPos3 = glm::vec3(toScreenWorldPos.x, toScreenWorldPos.y, toScreenWorldPos.z);
     
-    //ƒ‚ƒfƒ‹‚Ì•Ï”İ’è
+    //ãƒ¢ãƒ‡ãƒ«ã®å¤‰æ•°è¨­å®š
     //_mesh->m_rot.x = test*10;
     //_mesh->m_rot.y = test*10;
     _mesh->m_rot.z = test*10;
     _mesh->m_scale.x = 5;
 
-    //MVPs—ñ‚ÌŒvZ
+    //MVPè¡Œåˆ—ã®è¨ˆç®—
     glm::mat4 mvp = pro * view * model;
 
 
-    //ƒŒƒC‚Ì€”õ
+    //ãƒ¬ã‚¤ã®æº–å‚™
     Ray ray = Ray(cameraPos, screenWorldPos3 - cameraPos);
-    //‚ ‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìî•ñ‚ğŠi”[
+    //ã‚ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±ã‚’æ ¼ç´
     RayCastHit raycasthit;
-    //“–‚½‚Á‚½‚©‚Ç‚¤‚©
+    //å½“ãŸã£ãŸã‹ã©ã†ã‹
     bool hit = CRayCast::RayHitMesh(ray, _mesh,raycasthit);
     if (hit) {
         printf("hit     point(X:%f    Y:%f    Z:%f)    normal(X:%f    Y:%f    Z:%f)\n",
@@ -186,30 +186,30 @@ bool CRenderer::GLSetUp(HWND _hwnd){
     m_hdc = GetDC(_hwnd);
     int format = ChoosePixelFormat(m_hdc, &pfd);
     if (format == 0) {
-        printf("ƒsƒNƒZƒ‹ƒtƒH[ƒ}ƒbƒg‚Ì‘I‘ğ‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("ãƒ”ã‚¯ã‚»ãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®é¸æŠã«å¤±æ•—ã—ã¾ã—ãŸ");
 
-        return false; // ŠY“–‚·‚éƒsƒNƒZƒ‹ƒtƒH[ƒ}ƒbƒg‚ª–³‚¢
+        return false; // è©²å½“ã™ã‚‹ãƒ”ã‚¯ã‚»ãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãŒç„¡ã„
     }
 
-    // OpenGL‚ªg‚¤ƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg‚Éw’è‚ÌƒsƒNƒZƒ‹ƒtƒH[ƒ}ƒbƒg‚ğƒZƒbƒg
+    // OpenGLãŒä½¿ã†ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã«æŒ‡å®šã®ãƒ”ã‚¯ã‚»ãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’ã‚»ãƒƒãƒˆ
     if (!SetPixelFormat(m_hdc, format, &pfd)) {
-        printf("ƒsƒNƒZƒ‹ƒtƒH[ƒ}ƒbƒg‚ÌƒZƒbƒg‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("ãƒ”ã‚¯ã‚»ãƒ«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®ã‚»ãƒƒãƒˆã«å¤±æ•—ã—ã¾ã—ãŸ");
 
-        return false; // DC‚ÖƒtƒH[ƒ}ƒbƒg‚ğİ’è‚·‚é‚Ì‚É¸”s
+        return false; // DCã¸ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’è¨­å®šã™ã‚‹ã®ã«å¤±æ•—
     }
 
-    // OpenGL context‚ğì¬
+    // OpenGL contextã‚’ä½œæˆ
     m_glrc = wglCreateContext(m_hdc);
 
-    // ì¬‚³‚ê‚½ƒRƒ“ƒeƒLƒXƒg‚ªƒJƒŒƒ“ƒgiŒ»İg—p’†‚ÌƒRƒ“ƒeƒLƒXƒgj‚©H
+    // ä½œæˆã•ã‚ŒãŸã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãŒã‚«ãƒ¬ãƒ³ãƒˆï¼ˆç¾åœ¨ä½¿ç”¨ä¸­ã®ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆï¼‰ã‹ï¼Ÿ
     if (!wglMakeCurrent(m_hdc, m_glrc)) {
-        printf("ƒJƒŒƒ“ƒgƒRƒ“ƒeƒLƒXƒg");
+        printf("ã‚«ãƒ¬ãƒ³ãƒˆã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ");
 
-        return false; // ‰½‚©³‚µ‚­‚È‚¢‚İ‚½‚¢c
+        return false; // ä½•ã‹æ­£ã—ããªã„ã¿ãŸã„â€¦
     }
 
     if (glewInit() != GLEW_OK) {
-        printf("GL‚Ì‰Šú‰»‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("GLã®åˆæœŸåŒ–ã«å¤±æ•—ã—ã¾ã—ãŸ");
 
         return false;
     }
@@ -223,7 +223,7 @@ void CRenderer::Release() {
 }
 
 bool CRenderer::SetShaderMesh(CMesh* mesh, const char* vert, const char* frag) {
-    //ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_[ƒRƒ“ƒpƒCƒ‹
+    //ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
     GLuint vertShaderID = glCreateShader(GL_VERTEX_SHADER);
 
     ShaderProgramSource ss = ParseShader("game/ShaderFiles/Basic.shader");
@@ -248,10 +248,10 @@ bool CRenderer::SetShaderMesh(CMesh* mesh, const char* vert, const char* frag) {
     GLint success = 0;
     glGetShaderiv(vertShaderID, GL_COMPILE_STATUS, &success);
     if (success == GL_FALSE) {
-        printf("ƒo[ƒeƒbƒNƒXƒVƒF[ƒ_[‚ÌƒRƒ“ƒpƒCƒ‹‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("ãƒãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã«å¤±æ•—ã—ã¾ã—ãŸ");
     }
 
-    //ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_[‚ÌƒRƒ“ƒpƒCƒ‹
+    //ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
     GLuint fragShaderID = glCreateShader(GL_FRAGMENT_SHADER);
     const GLchar* fragmentShader = ss.FragmentSource.c_str();
     //ReadShaderCode(frag, fragmentShader);
@@ -266,29 +266,29 @@ bool CRenderer::SetShaderMesh(CMesh* mesh, const char* vert, const char* frag) {
 
     glGetShaderiv(fragShaderID, GL_COMPILE_STATUS, &success);
     if (success == GL_FALSE) {
-        printf("ƒtƒ‰ƒOƒƒ“ƒgƒVƒF[ƒ_[‚ÌƒRƒ“ƒpƒCƒ‹‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("ãƒ•ãƒ©ã‚°ãƒ¡ãƒ³ãƒˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã«å¤±æ•—ã—ã¾ã—ãŸ");
 
     }
 
-    //ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚Ìì¬
+    //ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
     GLuint programID = glCreateProgram();
     if (programID == 0) {
-        printf("ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚Ì¶¬‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆã«å¤±æ•—ã—ã¾ã—ãŸ");
     }
     glAttachShader(programID, vertShaderID);
     glAttachShader(programID, fragShaderID);
     GLint attached;
     glGetProgramiv(programID, GL_ATTACHED_SHADERS, &attached);
     if (attached == GL_FALSE) {
-        printf("ƒVƒF[ƒ_[‚ÌƒAƒ^ƒbƒ`‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚¢ã‚¿ãƒƒãƒã«å¤±æ•—ã—ã¾ã—ãŸ");
 
     }
-    //ƒŠƒ“ƒN
+    //ãƒªãƒ³ã‚¯
     GLint linked;
     glLinkProgram(programID);
     glGetProgramiv(programID, GL_LINK_STATUS, &linked);
     if (linked == GL_FALSE) {
-        printf("ƒVƒF[ƒ_[‚ÌƒŠƒ“ƒN‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒªãƒ³ã‚¯ã«å¤±æ•—ã—ã¾ã—ãŸ");
 
     }
     mesh->CreateShaderProgram(programID);
@@ -301,11 +301,11 @@ bool CRenderer::SetShaderMesh(CMesh* mesh, const char* vert, const char* frag) {
 
 //
 //const char* CRenderer::ReadShaderCode(const char* filename,const char* code) {
-//    //ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+//    //ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
 //    std::ifstream ifs(filename);
 //    if (!ifs)
 //    {
-//        printf("%s‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½\n",filename);
+//        printf("%sã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸ\n",filename);
 //        return "";
 //    }
 //
@@ -323,14 +323,14 @@ bool CRenderer::SetShaderMesh(CMesh* mesh, const char* vert, const char* frag) {
 
 
 void CRenderer::GLRelease() {
-    // Œãˆ—
-    // ƒJƒŒƒ“ƒgƒRƒ“ƒeƒLƒXƒg‚ğ–³Œø‚É‚·‚é
+    // å¾Œå‡¦ç†
+    // ã‚«ãƒ¬ãƒ³ãƒˆã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’ç„¡åŠ¹ã«ã™ã‚‹
     wglMakeCurrent(NULL, NULL);
 
-    // ƒJƒŒƒ“ƒgƒRƒ“ƒeƒLƒXƒg‚ğíœ
+    // ã‚«ãƒ¬ãƒ³ãƒˆã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’å‰Šé™¤
     wglDeleteContext(m_glrc);
 
-    // ƒfƒoƒCƒXƒRƒ“ƒeƒLƒXƒg‰ğ•ú
+    // ãƒ‡ãƒã‚¤ã‚¹ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆè§£æ”¾
     ReleaseDC(m_hwnd, m_hdc);
 }
 
@@ -401,17 +401,17 @@ glm::mat4 CRenderer::GetViewMatirix(glm::vec3 camera, glm::vec3 target, glm::vec
     glm::vec3 cY = { 0.0,    0.0,    0.0 };
     glm::vec3 cZ = { 0.0,    0.0,    0.0 };
 
-    //ƒJƒƒ‰Z²‚Ìİ’è
+    //ã‚«ãƒ¡ãƒ©Zè»¸ã®è¨­å®š
     cZ = glm::normalize(camera - target);
 
-    //ƒJƒƒ‰X²‚Ìİ’è
+    //ã‚«ãƒ¡ãƒ©Xè»¸ã®è¨­å®š
     cX = glm::normalize(glm::cross(up, cZ));
 
-    //ƒJƒƒ‰Y²‚Ìİ’è
+    //ã‚«ãƒ¡ãƒ©Yè»¸ã®è¨­å®š
     cY = glm::normalize(glm::cross(cZ,cX));
 
 
-    //Z²‚ªè‘O‚É‚ ‚é‚È‚ç
+    //Zè»¸ãŒæ‰‹å‰ã«ã‚ã‚‹ãªã‚‰
     if (inverseZ == true) {
         cZ = -cZ;
     }

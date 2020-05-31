@@ -1,4 +1,4 @@
-#include "application.h"
+﻿#include "application.h"
 #include "window.h"
 
 bool CApplication::Initilize(HINSTANCE hInstance,

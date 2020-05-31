@@ -1,4 +1,4 @@
-#include "ray_cast.h"
+ï»¿#include "ray_cast.h"
 #include "Mesh.h"
 
 bool CRayCast::RayHitTriangle(const Ray& _ray, const float* _vertice) {
@@ -57,7 +57,7 @@ bool CRayCast::RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const gl
 	glm::vec3 edge2 = point3 - point1;
 	glm::vec3 fromOrigin = _ray.m_origin - point1;
 
-	//—ñ—Dæ‚Ì‚½‚ßA‰º‚ÌƒRƒƒ“ƒg‚Æ“¯‚¶‚æ‚¤‚ÈŒ`‚Å“o˜^‚³‚ê‚é
+	//åˆ—å„ªå…ˆã®ãŸã‚ã€ä¸‹ã®ã‚³ãƒ¡ãƒ³ãƒˆã¨åŒã˜ã‚ˆã†ãªå½¢ã§ç™»éŒ²ã•ã‚Œã‚‹
 	glm::mat3 mat = glm::mat3(edge1,edge2,-_ray.m_dirction);
 	//glm::mat3 mat = glm::mat3(
 	//	edge1.x, edge2.x, -_ray.m_dirction.x,

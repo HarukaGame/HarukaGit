@@ -1,14 +1,14 @@
-#include "fileloader.h"
+ï»¿#include "fileloader.h"
 #include <iostream>
 #include <string>
 #include <fstream>
 
 const char* CFileLoader::GetText(const char* filename, const char* code) {
-    //ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+    //ãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
     std::ifstream ifs(filename);
     if (!ifs)
     {
-        printf("%s‚ğ“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½\n", filename);
+        printf("%sã‚’èª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸ\n", filename);
         return "";
     }
 

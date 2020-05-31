@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __MESH_H__
 #define __MESH_H__
 typedef unsigned int GLuint;

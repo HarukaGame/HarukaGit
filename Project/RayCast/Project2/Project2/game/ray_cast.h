@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #ifndef __RAY_CAST_H__
 #define __RAY_CAST_H__

@@ -1,4 +1,4 @@
-#include "Mesh.h"
+ï»¿#include "Mesh.h"
 #include <windows.h>
 #include "GL/glew.h"
 #include <iostream>
@@ -14,18 +14,18 @@ GLuint CMesh::CreateShaderProgram(GLuint programID) {
 
     m_uniformColor = glGetUniformLocation(m_programID, "color");
     if (m_uniformColor == -1) {
-        printf("color uniform‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("color uniformã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ");
 
     }
     m_uniformLight = glGetUniformLocation(m_programID, "light");
     if (m_uniformLight == -1) {
-        printf("light uniform‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("light uniformã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ");
 
     }
 
     m_uniformModelMat = glGetUniformLocation(m_programID, "MVP");
     if (m_uniformModelMat == -1) {
-        printf("MVP uniform‚Ìæ“¾‚É¸”s‚µ‚Ü‚µ‚½");
+        printf("MVP uniformã®å–å¾—ã«å¤±æ•—ã—ã¾ã—ãŸ");
 
     }
 
@@ -37,21 +37,21 @@ GLuint CMesh::CreateShaderProgram(GLuint programID) {
 }
 
 GLint CMesh::CreateVAO() {
-    //’¸“_”z—ñƒIƒuƒWƒFƒNƒg
+    //é ‚ç‚¹é…åˆ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     m_vaoID = -1;
     glGenBuffers(1, &m_vaoID); // Generate our Vertex Buffer Object
     glBindBuffer(GL_ARRAY_BUFFER, m_vaoID); // Bind our Vertex Buffer Object
 
-    //’¸“_ƒoƒbƒtƒ@ƒIƒuƒWƒFƒNƒg
+    //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     m_vboID = -1;
     glGenBuffers(1, &m_vboID); // Generate our Vertex Buffer Object
     glBindBuffer(GL_ARRAY_BUFFER, m_vboID); // Bind our Vertex Buffer Object
 
     glBufferData(GL_ARRAY_BUFFER, vertexNum * 2 * 3 * sizeof(GLfloat), &myvertices[0], GL_STATIC_DRAW); // Set the size and data of our VBO and set it to STATIC_DRAW
 
-    int attlocation = glGetAttribLocation(m_programID, "position");         //‰½”Ô–Ú‚Ìattribute•Ï”‚©
-    glEnableVertexAttribArray(attlocation);                                 //attribute‘®«‚ğ—LŒø‚É‚·‚é
-    glVertexAttribPointer(attlocation, 3, GL_FLOAT, GL_FALSE, 0, 0); //OpenGL‚©‚çƒVƒF[ƒ_[‚É’¸“_î•ñ‚ğ
+    int attlocation = glGetAttribLocation(m_programID, "position");         //ä½•ç•ªç›®ã®attributeå¤‰æ•°ã‹
+    glEnableVertexAttribArray(attlocation);                                 //attributeå±æ€§ã‚’æœ‰åŠ¹ã«ã™ã‚‹
+    glVertexAttribPointer(attlocation, 3, GL_FLOAT, GL_FALSE, 0, 0); //OpenGLã‹ã‚‰ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«é ‚ç‚¹æƒ…å ±ã‚’
 
 
 

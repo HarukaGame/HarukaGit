@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 namespace CUBE {
 	static const int vertexNum = 36;
 	static const int dateNum = 108;
