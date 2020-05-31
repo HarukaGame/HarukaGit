@@ -57,12 +57,14 @@ bool CRayCast::RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const gl
 	glm::vec3 edge2 = point3 - point1;
 	glm::vec3 fromOrigin = _ray.m_origin - point1;
 
-	glm::mat3 mat = glm::mat3(
-		edge1.x, edge2.x, -_ray.m_dirction.x,
-		edge1.y, edge2.y, -_ray.m_dirction.y,
-		edge1.z, edge2.z, -_ray.m_dirction.z
-	);
-	glm::vec3 kai = glm::transpose(glm::inverse(mat)) * fromOrigin;
+	//—ñ—Dæ‚Ì‚½‚ßA‰º‚ÌƒRƒƒ“ƒg‚Æ“¯‚¶‚æ‚¤‚ÈŒ`‚Å“o˜^‚³‚ê‚é
+	glm::mat3 mat = glm::mat3(edge1,edge2,-_ray.m_dirction);
+	//glm::mat3 mat = glm::mat3(
+	//	edge1.x, edge2.x, -_ray.m_dirction.x,
+	//	edge1.y, edge2.y, -_ray.m_dirction.y,
+	//	edge1.z, edge2.z, -_ray.m_dirction.z
+	//);
+	glm::vec3 kai = glm::inverse(mat) * fromOrigin;
 
 	float u = kai.x;
 	float v = kai.y;
