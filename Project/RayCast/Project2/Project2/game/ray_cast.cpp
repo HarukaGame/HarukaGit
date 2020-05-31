@@ -79,8 +79,13 @@ bool CRayCast::RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const gl
 		t > 0 &&
 		dot > 0;
 	if (hit == true) {
-		rayCastHit.m_point = _ray.m_origin + t * _ray.m_dirction;
-		rayCastHit.m_normal =  glm::normalize(glm::cross(edge1, edge2));
+		glm::vec3 contactPoint = _ray.m_origin + t * _ray.m_dirction;
+		float distance = glm::distance(contactPoint, _ray.m_origin);
+		if (distance < rayCastHit.m_distance) {
+			rayCastHit.m_point = contactPoint;
+			rayCastHit.m_normal =  glm::normalize(glm::cross(edge1, edge2));
+			rayCastHit.m_distance = distance;
+		}
 	}
 
 	return	hit;
@@ -129,12 +134,15 @@ bool CRayCast::RayHitMesh(const Ray& _ray, const CMesh* _mesh)
 bool CRayCast::RayHitMesh(const Ray& _ray, const CMesh* _mesh, RayCastHit& rayCastHit)
 {
 	bool hit = false;
+	rayCastHit.m_distance = FLT_MAX;
+	rayCastHit.m_normal = glm::vec3(0, 0, 0);
+	rayCastHit.m_point = glm::vec3(0, 0, 0);
 	int count = _mesh->GetVertexNum();
-	for (int index = 0; index * 3 < count && hit == false; index++) {
+	for (int index = 0; index * 3 < count; index++) {
 		glm::vec4 pos4[3] = {
-		glm::vec4(_mesh->myvertices[index * 9 + 0], _mesh->myvertices[index * 9 + 1], _mesh->myvertices[index * 9 + 2], 1),
-		glm::vec4(_mesh->myvertices[index * 9 + 3], _mesh->myvertices[index * 9 + 4], _mesh->myvertices[index * 9 + 5], 1),
-		glm::vec4(_mesh->myvertices[index * 9 + 6], _mesh->myvertices[index * 9 + 7], _mesh->myvertices[index * 9 + 8], 1)
+			glm::vec4(_mesh->myvertices[index * 9 + 0], _mesh->myvertices[index * 9 + 1], _mesh->myvertices[index * 9 + 2], 1),
+			glm::vec4(_mesh->myvertices[index * 9 + 3], _mesh->myvertices[index * 9 + 4], _mesh->myvertices[index * 9 + 5], 1),
+			glm::vec4(_mesh->myvertices[index * 9 + 6], _mesh->myvertices[index * 9 + 7], _mesh->myvertices[index * 9 + 8], 1)
 		};
 		glm::vec3 pos3[3];
 		for (int j = 0; j < 3; j++) {

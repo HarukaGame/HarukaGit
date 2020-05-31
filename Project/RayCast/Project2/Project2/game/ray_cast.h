@@ -19,6 +19,7 @@ struct Ray {
 struct RayCastHit {
 	glm::vec3 m_point = glm::vec3(0, 0, 0);
 	glm::vec3 m_normal = glm::vec3(0, 0, 0);
+	float m_distance = 0;
 };
 
 
