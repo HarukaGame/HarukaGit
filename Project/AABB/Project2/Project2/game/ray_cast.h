@@ -31,6 +31,10 @@ public:
 	static bool RayHitTriangle(const Ray& _ray, const glm::vec3& point1, const glm::vec3& point2, const glm::vec3& point3, RayCastHit& rayCastHit);
 	static bool RayHitMesh(const Ray& _ray, const CMesh* _mesh);
 	static bool RayHitMesh(const Ray& _ray, const CMesh* _mesh,RayCastHit& rayCastHit);
+	static bool RayHitAABB(const Ray& _ray, glm::vec3 _min, glm::vec3 _max);
+private:
+	static bool PointAABB(float checkX, float checkY, float maxX, float maxY, float minX, float minY);
+	static bool PointAABB(glm::vec2& _point, glm::vec2& _min, glm::vec2& _max);
 };
 
 

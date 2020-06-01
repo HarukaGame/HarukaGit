@@ -90,13 +90,13 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     test += 0.1f;
 
     //カメラ座標の設定
-    glm::vec3 cameraPos = glm::vec3(0, 5, 5);
+    glm::vec3 cameraPos = glm::vec3(4, 4,4);
     //モデル行列の取得
     glm::mat4 model = _mesh->GetModelMatrix();
     //ビュー行列の取得
     glm::mat4 view = GetViewMatirix(
         cameraPos,
-        glm::vec3(45, 0, 0)
+        glm::vec3(45, 45, 0)
     );
     //プロジェクション行列の取得
     glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1, 1);
@@ -123,8 +123,10 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     //モデルの変数設定
     //_mesh->m_rot.x = test*10;
     //_mesh->m_rot.y = test*10;
-    _mesh->m_rot.z = test*10;
-    _mesh->m_scale.x = 5;
+    //_mesh->m_rot.z = test*10;
+    _mesh->m_scale.x = 2;
+    _mesh->m_scale.y = 3;
+    _mesh->m_scale.z = 4;
 
     //MVP行列の計算
     glm::mat4 mvp = pro * view * model;
@@ -132,18 +134,28 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
 
     //レイの準備
     Ray ray = Ray(cameraPos, screenWorldPos3 - cameraPos);
-    //あたったオブジェクトの情報を格納
-    RayCastHit raycasthit;
-    //当たったかどうか
-    bool hit = CRayCast::RayHitMesh(ray, _mesh,raycasthit);
-    if (hit) {
-        printf("hit     point(X:%f    Y:%f    Z:%f)    normal(X:%f    Y:%f    Z:%f)\n",
-            raycasthit.m_point.x, raycasthit.m_point.y, raycasthit.m_point.z,
-            raycasthit.m_normal.x, raycasthit.m_normal.y, raycasthit.m_normal.z);
+    glm::vec3 min = glm::vec3(-1, -1.5, -2);
+    glm::vec3 max = glm::vec3(1, 1.5, 2);
+    if (CRayCast::RayHitAABB(ray, min, max)) {
+        printf("hit\n");
     }
     else {
         printf("none\n");
+
     }
+    
+    ////あたったオブジェクトの情報を格納
+    //RayCastHit raycasthit;
+    ////当たったかどうか
+    //bool hit = CRayCast::RayHitMesh(ray, _mesh,raycasthit);
+    //if (hit) {
+    //    printf("hit     point(X:%f    Y:%f    Z:%f)    normal(X:%f    Y:%f    Z:%f)\n",
+    //        raycasthit.m_point.x, raycasthit.m_point.y, raycasthit.m_point.z,
+    //        raycasthit.m_normal.x, raycasthit.m_normal.y, raycasthit.m_normal.z);
+    //}
+    //else {
+    //    printf("none\n");
+    //}
 
 
 
