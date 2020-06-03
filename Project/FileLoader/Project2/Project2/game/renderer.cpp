@@ -136,13 +136,13 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     Ray ray = Ray(cameraPos, screenWorldPos3 - cameraPos);
     glm::vec3 min = glm::vec3(-1, -1.5, -2);
     glm::vec3 max = glm::vec3(1, 1.5, 2);
-    if (CRayCast::RayHitAABB(ray, min, max)) {
-        printf("hit\n");
-    }
-    else {
-        printf("none\n");
+    //if (CRayCast::RayHitAABB(ray, min, max)) {
+    //    printf("hit\n");
+    //}
+    //else {
+    //    printf("none\n");
 
-    }
+    //}
     
     ////あたったオブジェクトの情報を格納
     //RayCastHit raycasthit;
@@ -242,12 +242,13 @@ bool CRenderer::SetShaderMesh(CMesh* mesh, const char* vert, const char* frag) {
     CFileLoader* fileloader = new CFileLoader();
     fileloader->CreateSource("game/ShaderFiles/basic.vs");
     const GLchar* vertexShader = fileloader->GetSource();
-    printf("%s\n",vertexShader);
+    printf("%s",vertexShader);
 
 
 
 
-    glShaderSource(vertShaderID, 1, &vertexShader,&fileloader->length);
+    glShaderSource(vertShaderID, 1, &vertexShader,&(fileloader->length));
+    //glShaderSource(vertShaderID, 1, &vertexShader,NULL);
     glCompileShader(vertShaderID);
     GLint success = 0;
     glGetShaderiv(vertShaderID, GL_COMPILE_STATUS, &success);
