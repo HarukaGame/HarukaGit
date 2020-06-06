@@ -7,8 +7,7 @@ CFpsController::CFpsController()
 
 CFpsController::CFpsController(int _fps)
 {
-	m_fps = _fps;
-	m_interval = 1.0f / _fps;
+	SetFPS(_fps);
 	TimerReset();
 }
 
@@ -33,17 +32,32 @@ void CFpsController::TimeUpdate() {
 	m_preTime = endInteger.QuadPart;
 }
 
-bool CFpsController::TimeOver()
+void CFpsController::SetFPS(int _fps)
 {
-	TimeUpdate();
-	bool isOver = m_timeCounter > m_interval;
-	if (isOver == true) {
-		ResetOverTime();
+	if (_fps > 0) {
+		m_fps = _fps;
 	}
-	return  isOver;
+	else {
+		m_fps = DEFAULT_FPS;
+	}
+	m_interval = 1.0f / m_fps;
+
+}
+
+bool CFpsController::TimeOver()const
+{
+	return m_timeCounter > m_interval;
+}
+
+float CFpsController::GetDeltaTime() const
+{
+	return m_deltaTime;
 }
 
 void CFpsController::ResetOverTime()
 {
+	m_deltaTime = m_timeCounter - m_preResetTime;
 	m_timeCounter -= m_interval;
+	m_preResetTime = m_timeCounter;
+
 }

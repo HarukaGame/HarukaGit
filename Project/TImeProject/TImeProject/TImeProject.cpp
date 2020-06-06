@@ -6,10 +6,12 @@
 
 int main()
 {
-    CFpsController f = CFpsController(10);
+    CFpsController f = CFpsController(10000);
     while (true) {
+        f.TimeUpdate();
         if (f.TimeOver()) {
-            std::cout << "Hello World!\n";
+            f.ResetOverTime();
+            std::cout  <<"Hello World!"<< f.GetDeltaTime() << std::endl;
         }
     }
 }
