@@ -21,7 +21,7 @@ struct ShaderProgramSource {
     std::string FragmentSource;
 };
 
-float test = 0;
+float test = -2;
 
 static ShaderProgramSource ParseShader(const std::string& filepath) {
     std::ifstream stream(filepath);
@@ -93,15 +93,15 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     _mesh->SetColor(0, 1, 1, 1);
     _mesh->SetLight(1, 2, 3);
 
-    test += 0.1f;
+    test += 0.001f;
 
 
-    glm::vec3 cameraPos = glm::vec3(5, 0, 5);
+    glm::vec3 cameraPos = glm::vec3(0, 0, 5);
 
 
     glm::mat4 view = GetViewMatirix(
         cameraPos,
-        glm::vec3(45, 0, 0)
+        glm::vec3(0, 0, 0)
     );
 
     glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1,1);
@@ -110,7 +110,7 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     //--------------------------------------------------------------------
     //ワールド座標からスクリーン座標
     //--------------------------------------------------------------------
-    glm::vec4 worldPosition = glm::vec4(test, test, 0, 1);
+    glm::vec4 worldPosition = glm::vec4(test, test, -1, 1);
     glm::mat4 viewportMat = GetViewPortMatrix((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
     glm::vec4 screenPosition = viewportMat * pro * view * worldPosition;
     screenPosition /= screenPosition.w;
@@ -120,14 +120,19 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     //スクリーン座標からワールド座標
     //--------------------------------------------------------------------
     POINT mouse = Input::GetMousePosition();
-    glm::vec4 preScreenPos = glm::vec4(mouse.x, mouse.y, -1, 1);
+    glm::vec4 preScreenPos = glm::vec4(mouse.x, mouse.y, test, 1);
 
     glm::mat4 inversePort = glm::inverse(viewportMat);
     glm::mat4 inverseProjection = glm::inverse(pro);
     glm::mat4 inverseView = glm::inverse(view);
 
     //スクリーンワールド座標
-    glm::vec4 toScreenWorldPos =inverseView * inverseProjection * inversePort * preScreenPos;
+    //glm::vec4 toScreenWorldPos = inverseView * inversePort * preScreenPos;
+    glm::mat4 inverse = inverseView * inverseProjection * inversePort;
+    glm::vec4 toScreenWorldPos = inverse * preScreenPos;
+    toScreenWorldPos.x /= toScreenWorldPos.w;
+    toScreenWorldPos.y /= toScreenWorldPos.w;
+    toScreenWorldPos.z /= toScreenWorldPos.w;
     glm::vec3 screenWorldPos3 = glm::vec3(toScreenWorldPos.x, toScreenWorldPos.y, toScreenWorldPos.z);
     //任意の点
     glm::vec3 floorPoint = glm::vec3(0, 0, -2);
@@ -149,6 +154,9 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
                 objectPos.y,
                 objectPos.z
     );
+
+    dir = glm::normalize(dir);
+    printf("dir.x:%f   dir.x:%f   dir.x:%f\n", dir.x, dir.y, dir.z);
     //----------------------------------
     glm::mat4 model = GetModelMatirix(
         glm::vec3(objectPos.x, objectPos.y, objectPos.z),
