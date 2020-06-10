@@ -37,6 +37,9 @@ private:
 	glm::mat4 GetScaleMatrix(glm::vec3 scale);
 	glm::mat4 GetProjectionMatrix(float _angle, float _aspect, float _far, float _near);
 	glm::mat4 GetViewPortMatrix(float _width, float hwight);
+
+
+	glm::vec3 CalcFloorPoint(glm::vec3 origin, glm::vec3 dir, glm::vec3 floor, glm::vec3 normal);
 	bool GLSetUp(HWND _hwnd);
 	void GLRelease();
 

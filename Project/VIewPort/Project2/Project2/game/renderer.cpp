@@ -107,13 +107,18 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     glm::mat4 pro = GetProjectionMatrix(60, (float)WINDOW_WIDTH / WINDOW_HEIGHT, -1,1);
 
 
-    //----------------------------------
+    //--------------------------------------------------------------------
+    //ワールド座標からスクリーン座標
+    //--------------------------------------------------------------------
     glm::vec4 worldPosition = glm::vec4(test, test, 0, 1);
     glm::mat4 viewportMat = GetViewPortMatrix((float)WINDOW_WIDTH, (float)WINDOW_HEIGHT);
     glm::vec4 screenPosition = viewportMat * pro * view * worldPosition;
     screenPosition /= screenPosition.w;
     //printf("test:%f     x:%f  y:%f  z:%f   z:%f\n", test,screenPosition.x, screenPosition.y, screenPosition.z, screenPosition.w);
 
+    //--------------------------------------------------------------------
+    //スクリーン座標からワールド座標
+    //--------------------------------------------------------------------
     POINT mouse = Input::GetMousePosition();
     glm::vec4 preScreenPos = glm::vec4(mouse.x, mouse.y, -1, 1);
 
@@ -129,7 +134,10 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     //法線
     glm::vec3 normalVec = glm::vec3(0, 0, 1);
 
-    glm::vec3 objectPos = (glm::dot(normalVec, floorPoint - cameraPos) / glm::dot(normalVec, screenWorldPos3 - cameraPos)) * (screenWorldPos3 - cameraPos) + cameraPos;
+    glm::vec3 dir = screenWorldPos3 - cameraPos;
+
+    glm::vec3 objectPos = CalcFloorPoint(cameraPos, dir, floorPoint, normalVec);
+    //glm::vec3 objectPos = (glm::dot(normalVec, floorPoint - cameraPos) / glm::dot(normalVec, screenWorldPos3 - cameraPos)) * (screenWorldPos3 - cameraPos) + cameraPos;
 
     printf("test:%f     x:%f  y:%f  z:%f  w:%f   x:%f  y:%f  z:%f\n", 
                 test, 
@@ -167,6 +175,11 @@ void CRenderer::EndDisplay() {
     SwapBuffers(m_hdc);
     wglMakeCurrent(NULL, NULL);
 
+}
+
+glm::vec3 CRenderer::CalcFloorPoint(glm::vec3 origin, glm::vec3 dir, glm::vec3 floor, glm::vec3 normal)
+{
+    return (glm::dot(normal, floor - origin) / glm::dot(normal, dir)) * dir + origin;
 }
 
 bool CRenderer::GLSetUp(HWND _hwnd){
