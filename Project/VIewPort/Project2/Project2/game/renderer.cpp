@@ -96,7 +96,7 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     test += 0.001f;
 
 
-    glm::vec3 cameraPos = glm::vec3(0, 0, 5);
+    glm::vec3 cameraPos = glm::vec3(0, 0, 4);
 
 
     glm::mat4 view = GetViewMatirix(
@@ -159,8 +159,8 @@ void CRenderer::MeshDraw(CMesh* _mesh) {
     printf("dir.x:%f   dir.x:%f   dir.x:%f\n", dir.x, dir.y, dir.z);
     //----------------------------------
     glm::mat4 model = GetModelMatirix(
-        glm::vec3(objectPos.x, objectPos.y, objectPos.z),
-        glm::vec3(test, test, 0),
+        glm::vec3(0,0,0),
+        glm::vec3(0, 0, 0),
         glm::vec3(1, 1, 1)
     );
 

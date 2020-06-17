@@ -66,9 +66,9 @@ GLint CMesh::CreateVAO() {
     glVertexAttribPointer(normalLocation, 3, GL_FLOAT, GL_TRUE, 0,0);
 
 
-    glBindBuffer(GL_ARRAY_BUFFER, attlocation);
+    //glBindBuffer(GL_ARRAY_BUFFER, attlocation);
 
-    glBindBuffer(GL_ARRAY_BUFFER, normalLocation);
+    //glBindBuffer(GL_ARRAY_BUFFER, normalLocation);
 
     
     glBindVertexArray(0);
