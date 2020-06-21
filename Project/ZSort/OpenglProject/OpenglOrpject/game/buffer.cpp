@@ -19,3 +19,8 @@ int CBuffer::GetVertexNum() const
 {
 	return m_vertexNum;
 }
+
+void CBuffer::DeleteBuffer()
+{
+	glDeleteBuffers(1, &m_buffer);
+}

@@ -126,6 +126,7 @@ glm::mat4 CMesh::GetModelMatrix() const
 void CMesh::Finalize()
 {
     if (m_pBuffer != nullptr) {
+        m_pBuffer->DeleteBuffer();
         delete m_pBuffer;
     }
 }

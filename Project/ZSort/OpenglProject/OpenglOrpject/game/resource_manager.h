@@ -17,6 +17,8 @@ public:
 	template<class T>static T* CreateResourceObject(const hash _hash);
 	template<class T>static T* SearchResourceObject(const hash _hash);
 	template<class T>static bool ReleaseResource(const hash _hash);
+	static void DeleteMeshResource(const CMesh* _mesh);
+	static void DeleteShaderResource(const CShader* _shader);
 	static void Finalize();
 private:
 	static CShader* CreateShader();

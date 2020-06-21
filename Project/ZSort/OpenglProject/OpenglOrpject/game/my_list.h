@@ -216,6 +216,16 @@ public:
 	CListIterator End() {
 		return CListIterator(this, m_root);
 	}
+
+	CListIterator Search(CListIterator& _first, CListIterator& _end, T _value) {
+		iterator temp = _first;
+		for (; temp != _end; temp++) {
+			if ((*temp) == _value) {
+				return temp;
+			}
+		}
+		return temp;
+	}
 	typedef CListIterator iterator;
 
 };
@@ -286,6 +296,7 @@ void CList<T>::Remove(Node<T>* node)
 	delete node;
 	m_length--;
 }
+
 
 template<class T>
 void CList<T>::PushFront(T _value) {

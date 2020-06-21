@@ -1,6 +1,8 @@
 #include "gameobject.h"
 #include "mesh.h"
+#include "shader.h"
 #include "common_math.h"
+#include "resource_manager.h"
 using namespace GLM_MATH_NAMESPACE;
 
 
@@ -67,7 +69,19 @@ hash CGameObject::GetHash() const
 
 void CGameObject::Finalize()
 {
+	if (m_pMesh != nullptr) {
+		m_pMesh->RefCountDown();
+		if (m_pMesh->RefCountZero()) {
+			CResourceManager::DeleteMeshResource(m_pMesh);
+		}
+	}
 
+	if (m_pShader != nullptr) {
+		m_pShader->RefCountDown();
+		if (m_pShader->RefCountZero()) {
+			CResourceManager::DeleteShaderResource(m_pShader);
+		}
+	}
 }
 
 void CGameObject::ReCalculateTrans()

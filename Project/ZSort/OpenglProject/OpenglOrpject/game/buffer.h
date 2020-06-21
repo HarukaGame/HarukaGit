@@ -10,6 +10,7 @@ public:
 	int GetProgramID()const;
 	void CreateBuffer(const CMesh* _mesh);
 	int GetVertexNum()const;
+	void DeleteBuffer();
 private:
 	GLuint m_buffer = 0;
 	int m_vertexNum = 0;

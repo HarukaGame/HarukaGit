@@ -74,7 +74,6 @@ void CScene::Update()
 			CGameObject* tempObject =  m_pObjectManager->CreateGameObject(CHash::CRC32("TestCube"));
 			const CMesh* mesh = SearchOrCreateMesh(CHash::CRC32("CubeMesh"));
 			const CShader* shader = SearchOrCreateShader(CHash::CRC32("TransparentShader"));
-			//const CShader* shader = SearchOrCreateShader(CHash::CRC32("BasicShader"));
 			tempObject->SetMesh(mesh);
 			tempObject->SetShader(shader);
 			tempObject->SetPosition(x, y, z);

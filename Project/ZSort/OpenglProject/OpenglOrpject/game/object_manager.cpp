@@ -165,8 +165,6 @@ void CObjectManager::DeleteObject(const hash _hash)
 		return;
 	}
 	
-	CResourceManager::ReleaseResource<CMesh>(temp->GetMesh()->GetHash());
-	CResourceManager::ReleaseResource<CShader>(temp->GetShader()->GetHash());
 	temp->Finalize();
 	delete temp;
 	m_gameObjectList.Pop(iter);

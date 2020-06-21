@@ -174,6 +174,35 @@ void CResourceManager::DeleteResource(CResourceBase* _resource) {
 //	return false;
 //}
 
+void CResourceManager::DeleteMeshResource(const CMesh* _mesh)
+{
+	hash hash = _mesh->GetHash();
+	CList<CMesh*>::iterator iter = s_instance->m_meshList.Begin();
+	CList<CMesh*>::iterator end = s_instance->m_meshList.End();
+	for (; iter != end && hash != (*iter)->GetHash(); iter++);
+	if (iter == end) {
+		return;
+	}
+	(*iter)->Finalize();
+	delete (*iter);
+	s_instance->m_meshList.Pop(iter);
+}
+
+void CResourceManager::DeleteShaderResource(const CShader* _shader)
+{
+	hash hash = _shader->GetHash();
+	CList<CShader*>::iterator iter = s_instance->m_shaderList.Begin();
+	CList<CShader*>::iterator end = s_instance->m_shaderList.End();
+	for (; iter != end && hash != (*iter)->GetHash(); iter++);
+	if (iter == end) {
+		return;
+	}
+	(*iter)->Finalize();
+	delete (*iter);
+	s_instance->m_shaderList.Pop(iter);
+}
+
+
 void CResourceManager::Finalize()
 {
 	if (s_instance->m_meshList.Empty() == false) {
@@ -186,25 +215,12 @@ void CResourceManager::Finalize()
 
 CShader* CResourceManager::CreateShader()
 {
-	CFileLoader vertFile = CFileLoader();
-	CFileLoader fragFile = CFileLoader();
-	vertFile.LoadFile("game/ShaderFiles/transparent.vs");
-	fragFile.LoadFile("game/ShaderFiles/transparent.fs");
-	//vertFile.LoadFile("game/ShaderFiles/basic.vs");
-	//fragFile.LoadFile("game/ShaderFiles/basic.fs");
-	int programID = CShaderLoader::CreateShaderProgram(vertFile.GetBuffer(), vertFile.GetLength(), fragFile.GetBuffer(), fragFile.GetLength());
-	vertFile.Release();
-	fragFile.Release();
-
-	CShader* ret = new CShader();
-	ret->SetUpUniform(programID);
-	return ret;
+	CShader* shader = new CShader();
+	return shader;
 }
 
 CMesh* CResourceManager::CreateMesh()
 {
-	CMesh* tempMesh = new CMesh();
-	tempMesh->InitVertex();
-	tempMesh->CreateBuffer();
-	return tempMesh;
+	CMesh* mesh = new CMesh();
+	return mesh;
 }
