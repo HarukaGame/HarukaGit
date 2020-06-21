@@ -147,7 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="class_text.cpp" />
     <ClCompile Include="CreateSphere.cpp" />
+    <ClCompile Include="sphere_creator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="class_text.h" />
+    <ClInclude Include="sphere_creator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

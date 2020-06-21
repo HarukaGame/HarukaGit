@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "sphere_creator.h"
 using namespace std;
 
 int main()
@@ -11,6 +12,12 @@ int main()
     outputfile << "test";
     outputfile.close();
     std::cout << "Hello World!\n";
+    SphereInfo info;
+    CSphereCreator sphereCreator = CSphereCreator();
+    sphereCreator.CreateSphere(info, 1,4);
+    for (int i = 0; i < info.dataNum; i++) {
+        std::cout << info.vertices[i] << std::endl;
+    }
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
