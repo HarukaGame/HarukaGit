@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="game">
+      <UniqueIdentifier>{d16ef0ff-7a08-467b-91f6-0330a693ea52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\res">
+      <UniqueIdentifier>{667ceb17-c81e-4fbb-ae65-17d9b0a04e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\res\shaderfiles">
+      <UniqueIdentifier>{42e53130-49e5-4d88-961b-0f725538e566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\res\vertexfiles">
+      <UniqueIdentifier>{b6ef5c6a-b74c-4a00-9917-f98a149d9a45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="game\main.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\application.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\window.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\renderer.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\camera.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\fileloader.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\vertexfiles\cube.cpp">
+      <Filter>game\res\vertexfiles</Filter>
+    </ClCompile>
+    <ClCompile Include="game\input.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\ray_cast.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\opengl_device.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\debug_print.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\shader.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\resource_manager.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\shader_loader.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\mesh.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\object_manager.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\gameobject.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\buffer.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\common_math.cpp" />
+    <ClCompile Include="game\scene.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\light.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\resource_base.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\hash.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="game\input_device.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game\application.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\window.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\renderer.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\fileloader.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\vertexfiles\cube.h">
+      <Filter>game\res\vertexfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="game\input.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\ray_cast.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\common_math.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\opengl_device.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\debug_print.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\camera.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\shader.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\resource_manager.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\shader_loader.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\mesh.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\object_manager.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\my_list.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\gameobject.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\buffer.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\scene.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\light.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\resource_base.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\hash.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="game\input_device.h">
+      <Filter>game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="game\ShaderFiles\Basic.shader">
+      <Filter>game\res\shaderfiles</Filter>
+    </None>
+    <None Include="game\ShaderFiles\basic.fs">
+      <Filter>game\res\shaderfiles</Filter>
+    </None>
+    <None Include="game\ShaderFiles\basic.vs">
+      <Filter>game\res\shaderfiles</Filter>
+    </None>
+    <None Include="game\ShaderFiles\transparent.fs">
+      <Filter>game\res\shaderfiles</Filter>
+    </None>
+    <None Include="game\ShaderFiles\transparent.vs">
+      <Filter>game\res\shaderfiles</Filter>
+    </None>
+  </ItemGroup>
+</Project>

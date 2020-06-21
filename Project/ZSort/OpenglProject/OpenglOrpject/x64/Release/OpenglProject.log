@@ -1,0 +1,26 @@
+﻿  application.cpp
+  buffer.cpp
+  camera.cpp
+  gameobject.cpp
+  input_device.cpp
+  mesh.cpp
+  object_manager.cpp
+  opengl_device.cpp
+  ray_cast.cpp
+D:\Git\Clam\OpenglProject\OpenglOrpject\game\ray_cast.cpp(131,12): warning C4101: 'hitMaxFloorPoint': ローカル変数は 1 度も使われていません。
+D:\Git\Clam\OpenglProject\OpenglOrpject\game\ray_cast.cpp(130,12): warning C4101: 'hitMinFloorPoint': ローカル変数は 1 度も使われていません。
+  renderer.cpp
+  resource_base.cpp
+  resource_manager.cpp
+  scene.cpp
+  shader.cpp
+  shader_loader.cpp
+  cube.cpp
+  window.cpp
+  コード生成しています。
+D:\Git\Clam\OpenglProject\OpenglOrpject\game\my_list.h(143): warning C4172: ローカル変数またはテンポラリのアドレスを返します: iter
+  150 of 380 functions (39.5%) were compiled, the rest were copied from previous compilation.
+    49 functions were new in current compilation
+    19 functions had inline decision re-evaluated but remain unchanged
+  コード生成が終了しました。
+  OpenglProject.vcxproj -> D:\Git\Clam\OpenglProject\x64\Release\OpenglProject.exe
