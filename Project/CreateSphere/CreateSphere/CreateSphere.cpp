@@ -14,9 +14,16 @@ int main()
     std::cout << "Hello World!\n";
     SphereInfo info;
     CSphereCreator sphereCreator = CSphereCreator();
-    sphereCreator.CreateSphere(info, 1,4);
+    sphereCreator.CreateSphere(info, 2,4);
     for (int i = 0; i < info.dataNum; i++) {
-        std::cout << info.vertices[i] << std::endl;
+        if (i % 3 == 0) {
+            std::cout << std::endl;
+        }
+        if (i % 9 == 0) {
+            std::cout << std::endl;
+        }
+
+        printf("%06f     ", info.vertices[i]);
     }
 }
 
