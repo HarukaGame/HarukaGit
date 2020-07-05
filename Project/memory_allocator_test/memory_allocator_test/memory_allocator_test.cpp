@@ -17,9 +17,9 @@ int main()
 
     CMemoryAllocator allocator;
     allocator.Initialize();
-        Test* test = allocator.MemoryNew<Test>();
-        allocator.MemoryFree(test);
-        allocator.Finalize();
+    Test* test = CMemoryAllocator::MemoryNew<Test>();
+    CMemoryAllocator::MemoryFree(test);
+    CMemoryAllocator::Finalize();
     std::cout << "Hello World!\n";
 }
 

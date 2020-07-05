@@ -40,11 +40,11 @@ struct MemoryInfo {
 class CMemoryAllocator {
 public:
 	bool Initialize();
-	void Finalize();
-	void* MemoryMalloc(const unsigned int _size);
-	void MemoryFree(void* _ptr);
+	static void Finalize();
+	static void* MemoryMalloc(const unsigned int _size);
+	static void MemoryFree(void* _ptr);
 
-	template<class T>T* MemoryNew();
+	template<class T>static T* MemoryNew();
 
 	void* GetCurrentEndPointer()const;
 	void* GetReservedEndPointer()const;

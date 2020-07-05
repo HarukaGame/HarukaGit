@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+CMemoryAllocator CMemoryAllocator::s_instance;
 
 bool CMemoryAllocator::Initialize() {
 	PRINT("CMemoryAllocator::Initialize START\n");
@@ -22,6 +23,8 @@ bool CMemoryAllocator::Initialize() {
 	m_pDummyMemoryInfo = new(m_allocInfo.m_pTopMemoryPtr)MemoryInfo();
 	m_pDummyMemoryInfo->m_memorySize = 0;
 
+	s_instance = *this;
+
 	PRINT("CMemoryAllocator::Initialize reserve [%d]byte\n",sizeof(MemoryInfo));
 	return true;
 
@@ -29,11 +32,11 @@ bool CMemoryAllocator::Initialize() {
 
 void CMemoryAllocator::Finalize()
 {
-	if (m_allocInfo.useCount != 0) {
-		PRINT("useCount is %d\n",m_allocInfo.useCount);
+	if (s_instance.m_allocInfo.useCount != 0) {
+		PRINT("useCount is %d\n", s_instance.m_allocInfo.useCount);
 	}
 	PRINT("CMemoryAllocator::Finalize\n");
-	free(m_allocInfo.m_pTopMemoryPtr);
+	free(s_instance.m_allocInfo.m_pTopMemoryPtr);
 }
 
 void* CMemoryAllocator::MemoryMalloc(const unsigned int _size)
@@ -42,14 +45,14 @@ void* CMemoryAllocator::MemoryMalloc(const unsigned int _size)
 	unsigned int infoSize = sizeof(MemoryInfo);
 
 	MemoryInfo* preMemoryInfo = nullptr;
-	void* freePoiter = SearchMemoryBlockPtr(_size,preMemoryInfo);
+	void* freePoiter = s_instance.SearchMemoryBlockPtr(_size,preMemoryInfo);
 
 	//終端のポインタがあらかじめ確保したメモリの中にあるか調べる
 	if (freePoiter == nullptr) {
 		return nullptr;
 	}
 
-	m_allocInfo.useCount++;
+	s_instance.m_allocInfo.useCount++;
 	PRINT("Malloc [%d]byte + info[%d]byte = [%d]byte\n",_size,infoSize,_size + infoSize);
 
 	return freePoiter;
@@ -61,10 +64,10 @@ void CMemoryAllocator::MemoryFree(void* _ptr)
 		return;
 	}
 	MemoryInfo* memInfo = (MemoryInfo*)((char*)_ptr - sizeof(MemoryInfo));
-	if (memInfo == m_pDummyMemoryInfo) {
+	if (memInfo == s_instance.m_pDummyMemoryInfo) {
 		return;
 	}
-	m_allocInfo.useCount--;
+	s_instance.m_allocInfo.useCount--;
 	memInfo->m_pNextMemoryInfo->m_pPreMemoryInfo = memInfo->m_pPreMemoryInfo;
 	memInfo->m_pPreMemoryInfo->m_pNextMemoryInfo = memInfo->m_pNextMemoryInfo;
 	memInfo = nullptr;
