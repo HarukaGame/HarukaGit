@@ -2,7 +2,8 @@
 //
 
 #include <iostream>
-#include "my_memory_allocator.h"
+#include "second_memory_allocator.h"
+#include "debug_print.h"
 
 class Test {
 public:
@@ -15,11 +16,12 @@ int main()
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    CMemoryAllocator allocator;
+    PREMIUM::MemoryAllocator allocator;
     allocator.Initialize();
-    Test* test = CMemoryAllocator::MemoryNew<Test>();
-    CMemoryAllocator::MemoryFree(test);
-    CMemoryAllocator::Finalize();
+    allocator.ShowInfo();
+    void* temp = allocator.Malloc(10);
+    PRINT("%p\n", temp);
+    allocator.Finalize();
     std::cout << "Hello World!\n";
 }
 

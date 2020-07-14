@@ -149,11 +149,13 @@
   <ItemGroup>
     <ClCompile Include="debug_print.cpp" />
     <ClCompile Include="memory_allocator_test.cpp" />
-    <ClCompile Include="my_memory_allocator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug_print.h" />
-    <ClInclude Include="my_memory_allocator.h" />
+    <ClInclude Include="second_memory_allocator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="second_memory_allocator.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
