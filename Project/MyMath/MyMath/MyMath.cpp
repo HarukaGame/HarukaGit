@@ -4,18 +4,18 @@
 #include <iostream>
 #include "vector.h"
 
-void Show(const PREMINUM::CVector2& _vec) {
+void Show(const PREMIUM::CVector2& _vec) {
     std::cout << "x:" << _vec.x << "    y:" << _vec.y << std::endl;
 }
 
 int main()
 {
-    PREMINUM::CVector2 vec1 = PREMINUM::CVector2(1, 3);
-    PREMINUM::CVector2 vec2 = PREMINUM::CVector2(2, 3);
-    PREMINUM::CVector2 vec3 = vec1 + vec2;
+    PREMIUM::CVector2 vec1 = PREMIUM::CVector2(1, 3);
+    PREMIUM::CVector2 vec2 = PREMIUM::CVector2(2, 3);
+    PREMIUM::CVector2 vec3 = vec1 + vec2;
     vec3 = 2 * vec3;
     Show(vec3);
-    std::cout << PREMINUM::Dot(vec1,vec2) << std::endl;
+    std::cout << PREMIUM::Dot(vec1,vec2) << std::endl;
     std::cout << "Hello World!\n";
 }
 

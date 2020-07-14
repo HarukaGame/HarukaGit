@@ -1,5 +1,5 @@
 ﻿
-namespace PREMINUM {
+namespace PREMIUM {
 	CVector2::CVector2() {
 		x = 0;
 		y = 0;

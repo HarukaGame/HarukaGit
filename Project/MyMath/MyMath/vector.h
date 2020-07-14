@@ -1,7 +1,7 @@
 ﻿#pragma once
 #ifndef __VECTOR_H__
 #define __VECTOR_H__
-namespace PREMINUM {
+namespace PREMIUM {
 	class CVector2 {
 	public:
 		CVector2();
