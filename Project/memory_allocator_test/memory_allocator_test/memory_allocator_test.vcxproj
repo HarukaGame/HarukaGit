@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug_print.h" />
+    <ClInclude Include="preminum_lib.h" />
     <ClInclude Include="second_memory_allocator.h" />
   </ItemGroup>
   <ItemGroup>

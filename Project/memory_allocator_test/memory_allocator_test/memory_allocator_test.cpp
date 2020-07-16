@@ -4,6 +4,7 @@
 #include <iostream>
 #include "second_memory_allocator.h"
 #include "debug_print.h"
+#include "preminum_lib.h"
 
 class Test {
 public:
@@ -18,9 +19,9 @@ int main()
 
     PREMIUM::MemoryAllocator allocator;
     allocator.Initialize();
+    allocator.Malloc(21,16);
+    allocator.Malloc(21,16);
     allocator.ShowInfo();
-    void* temp = allocator.Malloc(10);
-    PRINT("%p\n", temp);
     allocator.Finalize();
     std::cout << "Hello World!\n";
 }

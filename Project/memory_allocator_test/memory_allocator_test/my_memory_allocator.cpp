@@ -1,4 +1,5 @@
 #include "my_memory_allocator.h"
+#include "preminum_lib.h"
 #include <stdlib.h>
 #include <stdio.h>
 

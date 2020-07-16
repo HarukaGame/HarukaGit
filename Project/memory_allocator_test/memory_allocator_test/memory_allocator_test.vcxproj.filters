@@ -29,6 +29,9 @@
     <ClInclude Include="second_memory_allocator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="preminum_lib.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="second_memory_allocator.inl">
