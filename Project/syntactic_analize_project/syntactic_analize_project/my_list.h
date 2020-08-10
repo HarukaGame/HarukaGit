@@ -1,25 +1,25 @@
-#pragma once
+ï»¿#pragma once
 
 #ifndef __MY_LIST_H__
 #define __MY_LIST_H__
 
 
-///@brief	ƒm[ƒhƒNƒ‰ƒX
+///@brief	ãƒãƒ¼ãƒ‰ã‚¯ãƒ©ã‚¹
 template<class T>
 struct Node {
-	T m_value;		//Ši”[‚·‚é’l
-	Node* m_pPrev = nullptr;//‘O‚Ìƒm[ƒhƒ|ƒCƒ“ƒ^
-	Node* m_pNext = nullptr;//Œã‚Ìƒm[ƒhƒ|ƒCƒ“ƒ^
+	T m_value;		//æ ¼ç´ã™ã‚‹å€¤
+	Node* m_pPrev = nullptr;//å‰ã®ãƒãƒ¼ãƒ‰ãƒã‚¤ãƒ³ã‚¿
+	Node* m_pNext = nullptr;//å¾Œã®ãƒãƒ¼ãƒ‰ãƒã‚¤ãƒ³ã‚¿
 
-	///@brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	///@brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Node() {
 		m_pPrev = this;
 		m_pNext = this;
 	}
-	///@brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	///@param[in]	_value	Ši”[‚·‚é’l
-	///@param[in]	_prev	‘O‚Ìƒm[ƒhƒ|ƒCƒ“ƒ^
-	///@param[in]	_next	Œã‚Ìƒm[ƒhƒ|ƒCƒ“ƒ^
+	///@brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	///@param[in]	_value	æ ¼ç´ã™ã‚‹å€¤
+	///@param[in]	_prev	å‰ã®ãƒãƒ¼ãƒ‰ãƒã‚¤ãƒ³ã‚¿
+	///@param[in]	_next	å¾Œã®ãƒãƒ¼ãƒ‰ãƒã‚¤ãƒ³ã‚¿
 	Node(T value, Node* prev, Node* next) {
 		m_value = value;
 		m_pPrev = prev;
@@ -33,100 +33,100 @@ class CList {
 public:
 class CListIterator;
 
-	///@brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	///@brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	CList();
 
-	///@brief	ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	///@brief	ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	///@param[in]	_list	
 	CList(const CList& _list);
 
-	///@brief	ƒfƒXƒgƒ‰ƒNƒ^
+	///@brief	ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~CList();
 	
-	///@brief	‘ã“ü‰‰Zq
+	///@brief	ä»£å…¥æ¼”ç®—å­
 	///@param[in]	_list
 	///@return		CList
 	CList& operator=(const CList& _list);
 
-	///@brief	ƒŠƒXƒg‚ª‹ó‚©”»’è
-	///@return		bool	true:‹ó
+	///@brief	ãƒªã‚¹ãƒˆãŒç©ºã‹åˆ¤å®š
+	///@return		bool	true:ç©º
 	bool Empty();
 
-	///@brief	ˆê”Ô‘O‚É—v‘f‚ğ“ü‚ê‚é
+	///@brief	ä¸€ç•ªå‰ã«è¦ç´ ã‚’å…¥ã‚Œã‚‹
 	///@param[in]	_value
 	void PushFront(T _value);
 
-	///@brief	ˆê”ÔŒã‚ë‚É—v‘f‚ğ“ü‚ê‚é
+	///@brief	ä¸€ç•ªå¾Œã‚ã«è¦ç´ ã‚’å…¥ã‚Œã‚‹
 	///@param[in]	_value
 	void PushBack(T _value);
 
 	void Insert(T _value, CListIterator _iter);
 
-	///@brief	ˆê”Ô‘O‚Ì—v‘f‚ğæ‚èo‚·
+	///@brief	ä¸€ç•ªå‰ã®è¦ç´ ã‚’å–ã‚Šå‡ºã™
 	///@return	T
 	void PopFront();
 
-	///@brief	ˆê”ÔŒã‚ë‚Ì—v‘f‚ğæ‚èo‚·
+	///@brief	ä¸€ç•ªå¾Œã‚ã®è¦ç´ ã‚’å–ã‚Šå‡ºã™
 	///@return	T
 	void PopBack();
 
 	void Pop(CListIterator _iter);
 
-	///@brief	‚·‚×‚Ä‚Ì—v‘f‚ğíœ‚·‚é
+	///@brief	ã™ã¹ã¦ã®è¦ç´ ã‚’å‰Šé™¤ã™ã‚‹
 	void Clear();
 
-	///@brief	‚Á‚Ä‚¢‚é—v‘f”‚ğ•Ô‚·
-	///@return	int	—v‘f”
+	///@brief	æŒã£ã¦ã„ã‚‹è¦ç´ æ•°ã‚’è¿”ã™
+	///@return	int	è¦ç´ æ•°
 	int Length();
 private:
-	///@brief	—v‘f‚ğ‰Á‚¦‚é
+	///@brief	è¦ç´ ã‚’åŠ ãˆã‚‹
 	///@param[in]	_value
-	///@param[in]	_node	‰Á‚¦‚éˆÊ’u‚Ì’¼‘O‚Ìƒm[ƒh
+	///@param[in]	_node	åŠ ãˆã‚‹ä½ç½®ã®ç›´å‰ã®ãƒãƒ¼ãƒ‰
 	void Add(T _value, Node<T>* _node);
 
-	///@brief	ƒm[ƒh‚ğíœ‚·‚é
-	///@param[in]	_node	íœ‚·‚éƒm[ƒh
-	///@return		T	íœ‚·‚éƒm[ƒh‚É“ü‚Á‚Ä‚¢‚½—v‘f
+	///@brief	ãƒãƒ¼ãƒ‰ã‚’å‰Šé™¤ã™ã‚‹
+	///@param[in]	_node	å‰Šé™¤ã™ã‚‹ãƒãƒ¼ãƒ‰
+	///@return		T	å‰Šé™¤ã™ã‚‹ãƒãƒ¼ãƒ‰ã«å…¥ã£ã¦ã„ãŸè¦ç´ 
 	void Remove(Node<T>* node);
 
-	Node<T>* m_root = nullptr;	//ŠÂóƒŠƒXƒg‚Ìƒ_ƒ~[ƒm[ƒhƒ|ƒCƒ“ƒ^
-	int m_length = 0;			//ƒm[ƒh‚Ì”
+	Node<T>* m_root = nullptr;	//ç’°çŠ¶ãƒªã‚¹ãƒˆã®ãƒ€ãƒŸãƒ¼ãƒãƒ¼ãƒ‰ãƒã‚¤ãƒ³ã‚¿
+	int m_length = 0;			//ãƒãƒ¼ãƒ‰ã®æ•°
 
 public:
-	///@brief	ƒCƒeƒŒ[ƒ^[ƒNƒ‰ƒX
+	///@brief	ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹
 	class CListIterator {
 	friend class CList;
 	public:
-		///@brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-		///@param[in]	_list	ƒŠƒXƒgƒNƒ‰ƒX	
-		///@param[in]	_node	ƒm[ƒh
+		///@brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+		///@param[in]	_list	ãƒªã‚¹ãƒˆã‚¯ãƒ©ã‚¹	
+		///@param[in]	_node	ãƒãƒ¼ãƒ‰
 		CListIterator(CList* _list, Node<T>* _node) {
 			m_pList = _list;
 			m_pNode = _node;
 		}
 
-		///@brief	QÆ‰‰Zq
+		///@brief	å‚ç…§æ¼”ç®—å­
 		///@return	T&		
 		T& operator*() { return m_pNode->m_value; }
 
-		///@brief	ƒAƒ[‰‰Zq
+		///@brief	ã‚¢ãƒ­ãƒ¼æ¼”ç®—å­
 		///@return	T*		
 		T* operator->() { return &m_pNode->m_value; }
 
-		///@brief	‘O’uƒCƒ“ƒNƒŠƒƒ“ƒg
+		///@brief	å‰ç½®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		///@return	CListIterator&
 		CListIterator& operator++() {
 			m_pNode = m_pNode->m_pNext;
 		}
 
-		///@brief	‘O’uƒfƒNƒŠƒƒ“ƒg
+		///@brief	å‰ç½®ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ
 		///@return	CListIterator&
 		CListIterator& operator--() {
 			m_pNode = m_pNode->m_pPrev;
 		}
 
-		///@brief	Œã’uƒCƒ“ƒNƒŠƒƒ“ƒg(ˆø”‚Íƒ_ƒ~[)
-		///@param[in]	_n	ƒ_ƒ~[
+		///@brief	å¾Œç½®ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ(å¼•æ•°ã¯ãƒ€ãƒŸãƒ¼)
+		///@param[in]	_n	ãƒ€ãƒŸãƒ¼
 		///@return	CListIterator&
 		CListIterator& operator++(int n) {
 			CListIterator iter(*this);
@@ -134,8 +134,8 @@ public:
 			return iter;
 		}
 
-		///@brief	Œã’uƒfƒNƒŠƒƒ“ƒg(ˆø”‚Íƒ_ƒ~[)
-		///@param[in]	_n	ƒ_ƒ~[
+		///@brief	å¾Œç½®ãƒ‡ã‚¯ãƒªãƒ¡ãƒ³ãƒˆ(å¼•æ•°ã¯ãƒ€ãƒŸãƒ¼)
+		///@param[in]	_n	ãƒ€ãƒŸãƒ¼
 		///@return	CListIterator&
 		CListIterator& operator--(int n) {
 			CListIterator iter(*this);
@@ -143,8 +143,8 @@ public:
 			return iter;
 		}
 
-		///@brief	‰ÁZ‘ã“ü
-		///@param[in]	_n	‰ÁZ”
+		///@brief	åŠ ç®—ä»£å…¥
+		///@param[in]	_n	åŠ ç®—æ•°
 		///@return	CListIterator&
 		CListIterator& operator+=(int n) {
 			for (int i = 0; i < n; i++) {
@@ -153,8 +153,8 @@ public:
 			return *this;
 		}
 
-		///@brief	Œ¸Z‘ã“ü
-		///@param[in]	_n	Œ¸Z”
+		///@brief	æ¸›ç®—ä»£å…¥
+		///@param[in]	_n	æ¸›ç®—æ•°
 		///@return	CListIterator&
 		CListIterator& operator-=(int n) {
 			for (int i = 0; i < n; i++) {
@@ -163,7 +163,7 @@ public:
 			return *this;
 		}
 
-		///@brief	‰ÁZ
+		///@brief	åŠ ç®—
 		///@param[in]	_n
 		///@return	CListIterator
 		CListIterator operator+(int n) {
@@ -174,7 +174,7 @@ public:
 			return CListIterator(m_pList, temp);
 		}
 
-		///@brief	Œ¸Z
+		///@brief	æ¸›ç®—
 		///@param[in]	_n
 		///@return	CListIterator
 		CListIterator operator-(int n) {
@@ -185,14 +185,14 @@ public:
 			return CListIterator(m_pList, temp);
 		}
 
-		///@brief	”äŠr‰‰Zq	==
+		///@brief	æ¯”è¼ƒæ¼”ç®—å­	==
 		///@param[in]	_iter
 		///@return	T
 		bool operator==(const CListIterator& _iter)const {
 			return m_pList == _iter.m_pList && m_pNode == _iter.m_pNode;
 		}
 
-		///@brief	”äŠr‰‰Zq	!=
+		///@brief	æ¯”è¼ƒæ¼”ç®—å­	!=
 		///@param[in]	_iter
 		///@return	T
 		bool operator!=(const CListIterator& _iter)const {
@@ -200,18 +200,18 @@ public:
 		}
 
 	private:
-		CList* m_pList = nullptr;	//ƒŠƒXƒg‚Ìƒ|ƒCƒ“ƒ^
-		Node<T>* m_pNode = nullptr;	//ƒm[ƒh‚Ìƒ|ƒCƒ“ƒ^
+		CList* m_pList = nullptr;	//ãƒªã‚¹ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+		Node<T>* m_pNode = nullptr;	//ãƒãƒ¼ãƒ‰ã®ãƒã‚¤ãƒ³ã‚¿
 
 	};
 
-	///@brief	‰‚ß‚ÌƒCƒeƒŒ[ƒ^‚ğæ“¾
+	///@brief	åˆã‚ã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å–å¾—
 	///@return	CListIterator
 	CListIterator Begin() {
 		return CListIterator(this, m_root->m_pNext);
 	}
 
-	///@brief	ÅŒã‚ÌƒCƒeƒŒ[ƒ^‚ğæ“¾
+	///@brief	æœ€å¾Œã®ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å–å¾—
 	///@return	CListIterator
 	CListIterator End() {
 		return CListIterator(this, m_root);

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #ifndef __HASH_H__
 #define __HASH_H__
 #include <string.h>
@@ -8,7 +8,7 @@ typedef unsigned long hash;
 
 #define INVALID_HASH (0x00000000)
 
-// CRC32‚Ìƒe[ƒuƒ‹î•ñ
+// CRC32ã®ãƒ†ãƒ¼ãƒ–ãƒ«æƒ…å ±
 static unsigned long CRC32Table[256] = {
     0x00000000, 0x04C11DB7, 0x09823B6E, 0x0D4326D9,
     0x130476DC, 0x17C56B6B, 0x1A864DB2, 0x1E475005,

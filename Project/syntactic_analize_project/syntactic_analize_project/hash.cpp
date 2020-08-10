@@ -1,4 +1,4 @@
-#include "hash.h"
+﻿#include "hash.h"
 
 unsigned long CHash::CRC32(const char* _str)
 {

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __DEBUG_PRINT_H__
 #define __DEBUG_PRINT_H__
 

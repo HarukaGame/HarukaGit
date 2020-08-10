@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef __VAR_H__
 #define __VAR_H__
 
@@ -14,11 +14,11 @@ public:
 	void SetData(const char* _value);
 	void SetData(int _value);
 	void SetData(float _value);
-private:
-
 	const char* GetCharData()const { return m_data.m_str; };
 	int GetIntData()const { return m_data.m_iData; };
 	float GetFloatData()const { return m_data.m_fData; };
+private:
+
 	union DATA {
 		const char* m_str = nullptr;
 		int m_iData;

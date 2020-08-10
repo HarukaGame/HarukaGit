@@ -2,9 +2,21 @@
 //
 
 #include <iostream>
+#include "fileloader.h"
+#include "lexical_analyzer.h"
 
 int main()
 {
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    CFileLoader fileLoader;
+    fileLoader.LoadFile("test_text.txt");
+
+    CLexicalAnalizer lexicalAnalizer;
+    lexicalAnalizer.AnalizeLexical(fileLoader.GetBuffer(), fileLoader.GetLength());
+    lexicalAnalizer.ShowToken();
+
+
+    fileLoader.Release();
     std::cout << "Hello World!\n";
 }
 

@@ -1,15 +1,16 @@
-#pragma once
+﻿#pragma once
 #ifndef __LEXICAL_ANALIZER_H__
 #define __LEXICAL_ANALIZER_H__
 
 #include "var.h"
+#include "my_list.h"
 
 enum class TOKEN_TYPE {
 	INVALID,
 	FUNCTION,
-	SEMICOLON,
+	NUMBER,
 	COMMA,
-
+	SEMICOLON,
 };
 
 struct TOKEN {
@@ -19,7 +20,21 @@ struct TOKEN {
 };
 
 class CLexicalAnalizer {
+
+public:
+	bool AnalizeLexical(const void* _buffer,unsigned int _length);
+	bool AnalizelexicalLine(const char* _buffer, unsigned int _length,unsigned int& _startIndex);
+	void ShowToken();
 private:
+	static unsigned int SearchCharIndex(const char* _buffer, unsigned int _length, unsigned int _startIndex, char _char);
+	static bool IsFunctionChar(const char _char);
+	static bool IsNumberChar(const char _char);
+	static bool IsComma(const char _char);
+	static bool IsSemicolon(const char _char);
+
+	bool AnalizeFunction(const char* _buffer, unsigned int _length, unsigned int& _startIndex);
+	bool CreateCharToken(TOKEN& _token,TOKEN_TYPE _type,const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex);
+	CList<TOKEN> m_tokenList;
 };
 
 

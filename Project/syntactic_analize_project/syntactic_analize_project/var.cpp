@@ -1,4 +1,4 @@
-#include "var.h"
+﻿#include "var.h"
 
 void CVar::SetData(const char* _value)
 {
