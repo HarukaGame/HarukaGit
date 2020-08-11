@@ -41,8 +41,12 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 		if (index > endIndex) {
 			break;
 		}
+		//タグが来た場合
 		if (IsFunctionChar(_buffer[index]) == true) {
 			AnalizeFunction(_buffer, _length, index);
+		}
+		else if (IsNumberChar(_buffer[index]) == true) {
+			AnalizeNumber(_buffer, _length, index);
 		}
 	}
 	_startIndex = endIndex+1;
@@ -54,8 +58,28 @@ void CLexicalAnalizer::ShowToken()
 	CList<TOKEN>::iterator iter = m_tokenList.Begin();
 	CList<TOKEN>::iterator end = m_tokenList.End();
 	for (; iter != end; iter++) {
-		PRINT("%s\n", (*iter).m_var.GetCharData());
+		if ((*iter).m_tokenType == TOKEN_TYPE::FUNCTION) {
+			PRINT("%s\n", (*iter).m_var.GetCharData());
+
+		}
+		if ((*iter).m_tokenType == TOKEN_TYPE::NUMBER) {
+			PRINT("%d\n", (*iter).m_var.GetIntData());
+
+		}
 	}
+}
+
+void CLexicalAnalizer::Finalize()
+{
+	CList<TOKEN>::iterator iter = m_tokenList.Begin();
+	CList<TOKEN>::iterator end = m_tokenList.End();
+	for (; iter != end; iter++) {
+		if ((*iter).m_tokenType == TOKEN_TYPE::FUNCTION) {
+			delete ((*iter).m_var.GetCharData());
+
+		}
+	}
+	m_tokenList.Clear();
 }
 
 unsigned int CLexicalAnalizer::SearchCharIndex(const char* _buffer, unsigned int _length, unsigned int _startIndex, char _char)
@@ -89,6 +113,22 @@ bool CLexicalAnalizer::AnalizeFunction(const char* _buffer, unsigned int _length
 	return success;
 }
 
+bool CLexicalAnalizer::AnalizeNumber(const char* _buffer, unsigned int _length, unsigned int& _startIndex)
+{
+	unsigned int index = _startIndex;
+	while (IsNumberChar(_buffer[index]) == true && index < _length) {
+		index++;
+	}
+
+	TOKEN token;
+	bool success = CreateNumberToken(token, TOKEN_TYPE::NUMBER, _buffer, _length, _startIndex, index);
+	if (success == true) {
+		m_tokenList.PushBack(token);
+	}
+	_startIndex = index;
+	return success;
+}
+
 
 bool CLexicalAnalizer::CreateCharToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex)
 {
@@ -110,6 +150,38 @@ bool CLexicalAnalizer::CreateCharToken(TOKEN& _token, TOKEN_TYPE _type, const ch
 	return true;
 }
 
+bool CLexicalAnalizer::CreateNumberToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex)
+{
+	_token.m_tokenType = _type;
+	return SetIntVar(_token.m_var, _buffer, _length,_startIndex, _endIndex);
+}
+
+bool CLexicalAnalizer::SetIntVar(CVar& _var, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex)
+{
+	bool minusFlag = false;
+	if (_buffer[_startIndex] == CHAR_SYNBOL_MINUS) {
+		minusFlag = true;
+		_startIndex++;
+	}
+
+	int digit = 1;
+	int tempIntValue = 0;
+	for (unsigned int i = _endIndex; i >= _startIndex; i--) {
+		if (_buffer[i] < CHAR_NUMBER_START || CHAR_NUMBER_END < _buffer[i]) {
+			continue;
+		}
+		tempIntValue += ConvertCharToInt(_buffer[i]) * digit;
+		digit *= 10;
+	}
+
+	if (minusFlag == true) {
+		tempIntValue *= -1;
+	}
+	_var.SetData(tempIntValue);
+	return true;
+}
+
+
 bool CLexicalAnalizer::IsFunctionChar(const char _char)
 {
 	if (CHAR_LOWER_CASE_LETTERS_START <= _char && _char <= CHAR_LOWER_CASE_LETTERS_END) {
@@ -126,7 +198,7 @@ bool CLexicalAnalizer::IsFunctionChar(const char _char)
 
 bool CLexicalAnalizer::IsNumberChar(const char _char)
 {
-	if (CHAR_NUMBER_START <= _char || _char <= CHAR_NUMBER_END) {
+	if (CHAR_NUMBER_START <= _char && _char <= CHAR_NUMBER_END) {
 		return true;
 	}
 	else if(CHAR_SYNBOL_DOT == _char || CHAR_SYNBOL_MINUS == _char){
@@ -149,4 +221,12 @@ bool CLexicalAnalizer::IsSemicolon(const char _char)
 		return true;
 	}
 	return false;
+}
+
+int CLexicalAnalizer::ConvertCharToInt(const char _char)
+{
+	if (CHAR_NUMBER_START <= _char && _char <= CHAR_NUMBER_END) {
+		return _char & 0x0f;
+	}
+	return -1;
 }

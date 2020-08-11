@@ -14,7 +14,7 @@ int main()
     CLexicalAnalizer lexicalAnalizer;
     lexicalAnalizer.AnalizeLexical(fileLoader.GetBuffer(), fileLoader.GetLength());
     lexicalAnalizer.ShowToken();
-
+    lexicalAnalizer.Finalize();
 
     fileLoader.Release();
     std::cout << "Hello World!\n";
