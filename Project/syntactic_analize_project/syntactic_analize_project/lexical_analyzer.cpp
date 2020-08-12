@@ -38,8 +38,8 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 		_startIndex++;
 		return true;
 	}
-
-	for (unsigned int index = _startIndex; index <= endIndex; index++) {
+	unsigned int index = _startIndex;
+	while (index <= endIndex) {
 		if (index > endIndex) {
 			break;
 		}
@@ -56,7 +56,37 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 		else if (IsNumberChar(_buffer[index]) == true) {
 			AnalizeNumber(_buffer, _length, index);
 		}
+		else if (IsComma(_buffer[index]) == true) {
+			AnalizeComma(_buffer, _length, index);
+		}
+		else {
+			index++;
+		}
 	}
+	//for (unsigned int index = _startIndex; index <= endIndex; index++) {
+	//	if (index > endIndex) {
+	//		break;
+	//	}
+
+	//	//"//"が来た場合、読み飛ばす
+	//	if (index + 1 <= endIndex && _buffer[index] == CHAR_SYNBOL_SLASH && _buffer[index + 1] == CHAR_SYNBOL_SLASH) {
+	//		break;
+	//	}
+
+	//	//タグが来た場合
+	//	if (IsFunctionChar(_buffer[index]) == true) {
+	//		AnalizeFunction(_buffer, _length, index);
+	//	}
+	//	else if (IsNumberChar(_buffer[index]) == true) {
+	//		AnalizeNumber(_buffer, _length, index);
+	//	}
+	//	else if (IsComma(_buffer[index]) == true) {
+	//		AnalizeComma(_buffer, _length, index);
+	//	}
+	//	else {
+
+	//	}
+	//}
 	_startIndex = endIndex;
 	return true;
 }
@@ -70,7 +100,7 @@ void CLexicalAnalizer::ShowToken()
 			PRINT("%s\n", (*iter).m_var.GetCharData());
 
 		}
-		if ((*iter).m_tokenType == TOKEN_TYPE::NUMBER) {
+		else if ((*iter).m_tokenType == TOKEN_TYPE::NUMBER) {
 			if ((*iter).m_var.GetVarType() == VAR_TYPE::VAR_TYPE_INT) {
 				PRINT("%d\n", (*iter).m_var.GetIntData());
 
@@ -79,6 +109,9 @@ void CLexicalAnalizer::ShowToken()
 				PRINT("%f\n", (*iter).m_var.GetFloatData());
 			}
 
+		}
+		else if ((*iter).m_tokenType == TOKEN_TYPE::COMMA) {
+			PRINT("%s\n", (*iter).m_var.GetCharData());
 		}
 	}
 }
@@ -143,6 +176,24 @@ bool CLexicalAnalizer::AnalizeNumber(const char* _buffer, unsigned int _length, 
 	return success;
 }
 
+bool CLexicalAnalizer::AnalizeComma(const char* _buffer, unsigned int _length, unsigned int& _startIndex)
+{
+
+	if (IsComma(_buffer[_startIndex]) == false) {
+		return false;
+	}
+
+	TOKEN token;
+
+
+	bool success = CreateCommaToken(token, TOKEN_TYPE::COMMA, _buffer, _length, _startIndex);
+	if (success == true) {
+		m_tokenList.PushBack(token);
+	}
+	_startIndex +=1;
+	return success;
+}
+
 
 bool CLexicalAnalizer::CreateCharToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex)
 {
@@ -174,6 +225,22 @@ bool CLexicalAnalizer::CreateNumberToken(TOKEN& _token, TOKEN_TYPE _type, const 
 		return SetFloatVar(_token.m_var, _buffer, _length, _startIndex, _endIndex);
 	}
 	return false;
+}
+
+bool CLexicalAnalizer::CreateCommaToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex)
+{
+	_token.m_tokenType = _type;
+	char* text = new char[2];
+	if (text == nullptr) {
+		return false;
+	}
+
+	text[0] = _buffer[_startIndex];
+	text[1] = '\0';
+
+	_token.m_var.SetData(text);
+
+	return true;
 }
 
 bool CLexicalAnalizer::SetIntVar(CVar& _var, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex)
