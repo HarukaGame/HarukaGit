@@ -14,9 +14,10 @@ public:
 	void SetData(const char* _value);
 	void SetData(int _value);
 	void SetData(float _value);
-	const char* GetCharData()const { return m_data.m_str; };
-	int GetIntData()const { return m_data.m_iData; };
-	float GetFloatData()const { return m_data.m_fData; };
+	const char* GetCharData()const;
+	int GetIntData()const;
+	float GetFloatData()const;
+	VAR_TYPE GetVarType()const { return m_tag; };
 private:
 
 	union DATA {
