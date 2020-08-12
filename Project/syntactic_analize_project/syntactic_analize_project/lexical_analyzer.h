@@ -38,10 +38,12 @@ private:
 
 	bool AnalizeFunction(const char* _buffer, unsigned int _length, unsigned int& _startIndex);
 	bool AnalizeNumber(const char* _buffer, unsigned int _length, unsigned int& _startIndex);
-	bool AnalizeComma(const char* _buffer, unsigned int _length, unsigned int& _startIndex);
-	bool CreateCharToken(TOKEN& _token,TOKEN_TYPE _type,const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex);
-	bool CreateNumberToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex);
-	bool CreateCommaToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex);
+	bool AnalizeSynbol(const char* _buffer, unsigned int _length, unsigned int& _startIndex);
+	static bool CreateCharToken(TOKEN& _token,TOKEN_TYPE _type,const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex);
+	static bool CreateNumberToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex);
+	static bool CreateSynbolToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex);
+
+
 
 	static bool SetIntVar(CVar& _var, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex);
 	static bool SetFloatVar(CVar& _var, const char* _buffer, unsigned int _length, unsigned int _startIndex, unsigned int _endIndex);

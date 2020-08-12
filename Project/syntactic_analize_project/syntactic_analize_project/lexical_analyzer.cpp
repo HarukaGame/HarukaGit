@@ -57,36 +57,15 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 			AnalizeNumber(_buffer, _length, index);
 		}
 		else if (IsComma(_buffer[index]) == true) {
-			AnalizeComma(_buffer, _length, index);
+			AnalizeSynbol(_buffer, _length, index);
+		}
+		else if (IsSemicolon(_buffer[index]) == true) {
+			AnalizeSynbol(_buffer, _length, index);
 		}
 		else {
 			index++;
 		}
 	}
-	//for (unsigned int index = _startIndex; index <= endIndex; index++) {
-	//	if (index > endIndex) {
-	//		break;
-	//	}
-
-	//	//"//"が来た場合、読み飛ばす
-	//	if (index + 1 <= endIndex && _buffer[index] == CHAR_SYNBOL_SLASH && _buffer[index + 1] == CHAR_SYNBOL_SLASH) {
-	//		break;
-	//	}
-
-	//	//タグが来た場合
-	//	if (IsFunctionChar(_buffer[index]) == true) {
-	//		AnalizeFunction(_buffer, _length, index);
-	//	}
-	//	else if (IsNumberChar(_buffer[index]) == true) {
-	//		AnalizeNumber(_buffer, _length, index);
-	//	}
-	//	else if (IsComma(_buffer[index]) == true) {
-	//		AnalizeComma(_buffer, _length, index);
-	//	}
-	//	else {
-
-	//	}
-	//}
 	_startIndex = endIndex;
 	return true;
 }
@@ -176,21 +155,21 @@ bool CLexicalAnalizer::AnalizeNumber(const char* _buffer, unsigned int _length, 
 	return success;
 }
 
-bool CLexicalAnalizer::AnalizeComma(const char* _buffer, unsigned int _length, unsigned int& _startIndex)
-{
 
-	if (IsComma(_buffer[_startIndex]) == false) {
+bool CLexicalAnalizer::AnalizeSynbol(const char* _buffer, unsigned int _length, unsigned int& _startIndex)
+{
+	if (_startIndex >= _length) {
 		return false;
 	}
-
+	
 	TOKEN token;
 
 
-	bool success = CreateCommaToken(token, TOKEN_TYPE::COMMA, _buffer, _length, _startIndex);
+	bool success = CreateSynbolToken(token, TOKEN_TYPE::COMMA, _buffer, _length, _startIndex);
 	if (success == true) {
 		m_tokenList.PushBack(token);
 	}
-	_startIndex +=1;
+	_startIndex += 1;
 	return success;
 }
 
@@ -227,7 +206,7 @@ bool CLexicalAnalizer::CreateNumberToken(TOKEN& _token, TOKEN_TYPE _type, const 
 	return false;
 }
 
-bool CLexicalAnalizer::CreateCommaToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex)
+bool CLexicalAnalizer::CreateSynbolToken(TOKEN& _token, TOKEN_TYPE _type, const char* _buffer, unsigned int _length, unsigned int _startIndex)
 {
 	_token.m_tokenType = _type;
 	char* text = new char[2];
