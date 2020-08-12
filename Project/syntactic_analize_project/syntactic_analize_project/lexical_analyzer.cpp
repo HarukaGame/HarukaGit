@@ -8,6 +8,8 @@ static const char CHAR_NUMBER_START = '0';
 static const char CHAR_NUMBER_END = '9';
 static const char CHAR_SYNBOL_MINUS = '-';
 static const char CHAR_SYNBOL_DOT = '.';
+static const char CHAR_SYNBOL_SLASH = '/';
+static const char CHAR_SYNBOL_ENTER = 0x0A;
 static const char CHAR_LOWER_CASE_LETTERS_START = 'a';
 static const char CHAR_LOWER_CASE_LETTERS_END = 'z';
 static const char CHAR_UPPER_CASE_LETTERS_START = 'A';
@@ -31,7 +33,7 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 		return false;
 	}
 
-	unsigned int endIndex = SearchCharIndex(_buffer,_length,_startIndex, CHAR_SEMICOLON);
+	unsigned int endIndex = SearchCharIndex(_buffer,_length,_startIndex, CHAR_SYNBOL_ENTER);
 	if (endIndex == 0) {
 		_startIndex++;
 		return true;
@@ -41,6 +43,12 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 		if (index > endIndex) {
 			break;
 		}
+
+		//"//"が来た場合、読み飛ばす
+		if (index + 1 <= endIndex && _buffer[index] == CHAR_SYNBOL_SLASH && _buffer[index + 1] == CHAR_SYNBOL_SLASH) {
+			break;
+		}
+
 		//タグが来た場合
 		if (IsFunctionChar(_buffer[index]) == true) {
 			AnalizeFunction(_buffer, _length, index);
@@ -49,7 +57,7 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 			AnalizeNumber(_buffer, _length, index);
 		}
 	}
-	_startIndex = endIndex+1;
+	_startIndex = endIndex;
 	return true;
 }
 
