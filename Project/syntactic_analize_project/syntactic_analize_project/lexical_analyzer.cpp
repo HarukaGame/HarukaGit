@@ -100,7 +100,7 @@ void CLexicalAnalizer::Finalize()
 	CList<TOKEN>::iterator iter = m_tokenList.Begin();
 	CList<TOKEN>::iterator end = m_tokenList.End();
 	for (; iter != end; iter++) {
-		if ((*iter).m_tokenType == TOKEN_TYPE::FUNCTION) {
+		if ((*iter).m_var.GetVarType() == VAR_TYPE::VAR_TYPE_STRING) {
 			delete ((*iter).m_var.GetCharData());
 
 		}
