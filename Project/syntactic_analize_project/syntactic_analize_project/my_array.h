@@ -8,6 +8,7 @@ public:
 	bool Initialize(unsigned int _num);
 	void Finalize();
 	T* GetArray()const { return m_array; };
+	T& operator[](unsigned int _i) { return m_array[_i]; };
 	unsigned int GetNum()const { return m_arrayNum; };
 private:
 	T* m_array = nullptr;

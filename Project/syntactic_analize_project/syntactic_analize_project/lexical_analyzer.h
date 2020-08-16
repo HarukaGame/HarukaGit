@@ -2,28 +2,16 @@
 #ifndef __LEXICAL_ANALIZER_H__
 #define __LEXICAL_ANALIZER_H__
 
-#include "var.h"
+#include "common_analize.h"
 #include "my_list.h"
 
-enum class TOKEN_TYPE {
-	INVALID,
-	FUNCTION,
-	NUMBER,
-	COMMA,
-	SEMICOLON,
-};
-
-struct TOKEN {
-	CVar m_var;
-	TOKEN_TYPE m_tokenType = TOKEN_TYPE::INVALID;
-
-};
 
 class CLexicalAnalizer {
 
 public:
 	bool AnalizeLexical(const void* _buffer,unsigned int _length);
 	bool AnalizelexicalLine(const char* _buffer, unsigned int _length,unsigned int& _startIndex);
+	const CList<TOKEN>& GetTokenList()const;
 	void ShowToken();
 	void Finalize();
 private:

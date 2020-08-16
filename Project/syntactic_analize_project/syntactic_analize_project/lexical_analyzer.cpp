@@ -70,6 +70,11 @@ bool CLexicalAnalizer::AnalizelexicalLine(const char* _buffer, unsigned int _len
 	return true;
 }
 
+const CList<TOKEN>& CLexicalAnalizer::GetTokenList() const
+{
+	return m_tokenList;
+}
+
 void CLexicalAnalizer::ShowToken()
 {
 	CList<TOKEN>::iterator iter = m_tokenList.Begin();

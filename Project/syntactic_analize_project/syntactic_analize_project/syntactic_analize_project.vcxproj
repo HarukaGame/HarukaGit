@@ -152,15 +152,19 @@
     <ClCompile Include="hash.cpp" />
     <ClCompile Include="lexical_analyzer.cpp" />
     <ClCompile Include="syntactic_analize_project.cpp" />
+    <ClCompile Include="syntactic_analyzer.cpp" />
     <ClCompile Include="var.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="common_analize.h" />
+    <ClInclude Include="common_tag.h" />
     <ClInclude Include="debug_print.h" />
     <ClInclude Include="fileloader.h" />
     <ClInclude Include="hash.h" />
     <ClInclude Include="lexical_analyzer.h" />
     <ClInclude Include="my_array.h" />
     <ClInclude Include="my_list.h" />
+    <ClInclude Include="syntactic_analyzer.h" />
     <ClInclude Include="var.h" />
   </ItemGroup>
   <ItemGroup>
