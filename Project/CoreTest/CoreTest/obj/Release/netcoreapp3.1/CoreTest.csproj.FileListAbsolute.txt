@@ -1,0 +1,13 @@
+C:\Users\user\Desktop\CoreTest\CoreTest\bin\Release\netcoreapp3.1\CoreTest.exe
+C:\Users\user\Desktop\CoreTest\CoreTest\bin\Release\netcoreapp3.1\CoreTest.deps.json
+C:\Users\user\Desktop\CoreTest\CoreTest\bin\Release\netcoreapp3.1\CoreTest.runtimeconfig.json
+C:\Users\user\Desktop\CoreTest\CoreTest\bin\Release\netcoreapp3.1\CoreTest.runtimeconfig.dev.json
+C:\Users\user\Desktop\CoreTest\CoreTest\bin\Release\netcoreapp3.1\CoreTest.dll
+C:\Users\user\Desktop\CoreTest\CoreTest\bin\Release\netcoreapp3.1\CoreTest.pdb
+C:\Users\user\Desktop\CoreTest\CoreTest\obj\Release\netcoreapp3.1\CoreTest.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\CoreTest\CoreTest\obj\Release\netcoreapp3.1\CoreTest.AssemblyInfo.cs
+C:\Users\user\Desktop\CoreTest\CoreTest\obj\Release\netcoreapp3.1\CoreTest.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\CoreTest\CoreTest\obj\Release\netcoreapp3.1\CoreTest.dll
+C:\Users\user\Desktop\CoreTest\CoreTest\obj\Release\netcoreapp3.1\CoreTest.pdb
+C:\Users\user\Desktop\CoreTest\CoreTest\obj\Release\netcoreapp3.1\CoreTest.genruntimeconfig.cache
+C:\Users\user\Desktop\CoreTest\CoreTest\obj\Release\netcoreapp3.1\CoreTest.csprojAssemblyReference.cache
