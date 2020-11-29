@@ -61,6 +61,7 @@ public:
 	void Test();
 	void CheckMemory();
 	void SetUp();
+	void SetFilter(FString Filter);
 	TArray<FSubItem> GetObjects()const;
 private:
 	static MemoryMonitor& Construct();
@@ -88,7 +89,7 @@ private:
 	TArray<FItem> List;
 	TArray<FSubItem> Objects;
 	FItem Total;
-
+	FString FilterName;
 };
 
 

@@ -88,6 +88,15 @@ void MemoryMonitor::SetUp() {
 
 }
 
+inline bool ApplyFilter(const FString& Filter, const FString& FullName) {
+	int32 Count = Filter.Len();
+	return FullName.Left(Count) == Filter;
+}
+
+void MemoryMonitor::SetFilter(FString Filter) {
+	FilterName = FString("Package ") + Filter;
+}
+
 void MemoryMonitor::CheckMemory() {
 
 	List.Empty();
@@ -100,6 +109,10 @@ void MemoryMonitor::CheckMemory() {
 		//{
 		//	continue;
 		//}
+		if (!ApplyFilter(FilterName, It->GetFullName())) {
+			continue;
+		}
+
 		if (It->IsTemplate(RF_ClassDefaultObject))
 		{
 			if (!bShouldIncludeDefaultObjects)
@@ -179,6 +192,7 @@ void MemoryMonitor::CheckMemory() {
 		It->GetResourceSizeEx(TrueResourceSize);
 
 		int32 i;
+
 
 		// which class are we going to file this object under? by default, it's class
 		UClass* ClassToUse = It->GetClass();

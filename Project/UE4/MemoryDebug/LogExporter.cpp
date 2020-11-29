@@ -22,6 +22,7 @@ void ALogExporter::BeginPlay()
 
 	MemoryMonitor& memoryMonitor = MemoryMonitor::GetInstance();
 	memoryMonitor.SetUp();
+	memoryMonitor.SetFilter(FString("/Game/Materials"));
 	
 }
 
@@ -39,15 +40,11 @@ void ALogExporter::ShowMemoryLog() {
 	TArray<FSubItem> objects = memoryMonitor.GetObjects();
 	UE_LOG(LogTemp, Log, TEXT("ObjectCount %d"), objects.Num());
 
-	FString filterName = FString("Package /Game/Materials");
 	for (const FSubItem& ObjItem : objects) {
-		FString Path = ObjItem.Object->GetFullName();
-		if (Path.Left(filterName.Len()) == filterName) {
-			FColor _Col = FColor::White;
-			FVector2D _Scl = FVector2D(1.0f, 1.0f);
-			FString output = ObjItem.Object->GetFullName() + FString::SanitizeFloat(ObjItem.Num / 1024.0f);
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, _Col, output, true, _Scl);
-			//UE_LOG(LogTemp, Log, TEXT("%s %10.2f MB"), *ObjItem.Object->GetFullName(), ObjItem.Num / 1024.0f);;
-		}
+		FColor _Col = FColor::White;
+		FVector2D _Scl = FVector2D(1.0f, 1.0f);
+		FString output = ObjItem.Object->GetFullName() + FString("  ") + FString::SanitizeFloat(ObjItem.Num / 1024.0f);
+		GEngine->AddOnScreenDebugMessage(-1, 10.0f, _Col, output, true, _Scl);
+		//UE_LOG(LogTemp, Log, TEXT("%s %10.2f MB"), *ObjItem.Object->GetFullName(), ObjItem.Num / 1024.0f);;
 	}
 }
